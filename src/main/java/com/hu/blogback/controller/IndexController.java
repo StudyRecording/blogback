@@ -1,20 +1,17 @@
 package com.hu.blogback.controller;
 
-import com.hu.blogback.exception.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class IndexController {
 
-    @GetMapping("/")
-    public String index() {
+    @GetMapping("/{id}/{name}")
+    public String index(@PathVariable Integer id, @PathVariable String name) {
 
+//        System.out.println("id: " + id + " name: " + name);
 //        int i = 4/0;
-        Object obj = null;
-        if (obj == null) {
-            throw new NotFoundException("没有该博客!");
-        }
         return "index";
     }
 
