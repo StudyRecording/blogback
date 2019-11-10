@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragment :: head(~{:: title})">
     <meta charset="UTF-8">
     <title>404</title>
 </head>
 <body>
-    <h1>404</h1>
+    <nav th:replace="_fragment :: nav(-1)"></nav>
+    <br>
+    <div class="m-container-small m-padded-tb-massive">
+        <div class="ui error message">
+            <div class="ui contianer">
+                <h2>404</h2>
+                <p>Sorray, Not Found!</p>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <footer th:replace="_fragment :: footer"></footer>
 </body>
 </html>
