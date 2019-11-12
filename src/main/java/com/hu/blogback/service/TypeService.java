@@ -4,6 +4,8 @@ import com.hu.blogback.pojo.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface TypeService {
 
     /**
@@ -26,6 +28,12 @@ public interface TypeService {
      * @return
      */
     Page<Type> listType(Pageable pageable);
+
+    /**
+     * 查找所有数据
+     * @return
+     */
+    List<Type> listType();
 
     /**
      * 更新分类信息
