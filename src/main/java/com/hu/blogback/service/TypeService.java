@@ -36,6 +36,13 @@ public interface TypeService {
     List<Type> listType();
 
     /**
+     * 查找博客类型最多的size个博客类型
+     * @param size
+     * @return
+     */
+    List<Type> listTypeTop(Integer size);
+
+    /**
      * 更新分类信息
      * @param id
      * @param type

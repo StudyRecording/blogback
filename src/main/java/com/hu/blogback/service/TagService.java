@@ -41,6 +41,10 @@ public interface TagService {
      * @return
      */
     List<Tag> listTay(String ids);
+
+
+    List<Tag> listTag(Integer size);
+
     /**
      * 更新标签
      * @param id
