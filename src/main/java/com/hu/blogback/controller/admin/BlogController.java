@@ -1,4 +1,4 @@
-package com.hu.blogback.controller;
+package com.hu.blogback.controller.admin;
 
 import com.hu.blogback.pojo.Blog;
 import com.hu.blogback.pojo.User;

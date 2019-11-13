@@ -1,4 +1,4 @@
-package com.hu.blogback.controller;
+package com.hu.blogback.controller.admin;
 
 import com.hu.blogback.pojo.Type;
 import com.hu.blogback.service.TypeService;
