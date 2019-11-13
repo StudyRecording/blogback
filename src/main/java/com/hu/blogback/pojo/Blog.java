@@ -18,6 +18,7 @@ public class Blog {
     private String firstPicture;
     private String flag;
     private Integer views;
+    private String description;
     private boolean appreciation;
     private boolean shareStatement;
     private boolean commentabled;
@@ -42,7 +43,14 @@ public class Blog {
     @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
 
+    @Transient
+    private String tagIds;
+
     public Blog() {
+    }
+
+    public void init() {
+        this.tagIds = tagsToIds(this.tags);
     }
 
     public Long getId() {
@@ -179,6 +187,40 @@ public class Blog {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    private String tagsToIds(List<Tag> tags) {
+        if(!tags.isEmpty()) {
+            StringBuffer ids = new StringBuffer();
+            boolean flag = false;
+            for (Tag tag : tags) {
+                if(flag) {
+                    ids.append(',');
+                } else {
+                    flag = true;
+                }
+                ids.append(tag.getId());
+            }
+            return ids.toString();
+        } else {
+            return tagIds;
+        }
     }
 
     @Override

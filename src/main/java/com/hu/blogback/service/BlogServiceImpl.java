@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -18,6 +19,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -78,8 +80,19 @@ public class BlogServiceImpl implements BlogService {
      * @param blog
      * @return
      */
+    @Transactional
     @Override
     public Blog saveBlog(Blog blog) {
+
+        if (blog.getId() == null) { //新建blog
+            blog.setCreateTime(new Date());
+            blog.setViews(0);
+        } else {//修改博客
+            Blog b = getBlog(blog.getId());
+            blog.setCreateTime(b.getCreateTime());
+            blog.setViews(b.getViews());
+        }
+        blog.setUpdateTime(new Date());
         return blogRepository.save(blog);
     }
 
@@ -89,6 +102,7 @@ public class BlogServiceImpl implements BlogService {
      * @param blog
      * @return
      */
+    @Transactional
     @Override
     public Blog updateBlog(Long id, Blog blog) {
 
@@ -104,6 +118,7 @@ public class BlogServiceImpl implements BlogService {
      * 删除博客
      * @param id
      */
+    @Transactional
     @Override
     public void deleteBlog(Long id) {
         blogRepository.deleteById(id);

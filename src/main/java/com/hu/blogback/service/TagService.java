@@ -36,6 +36,12 @@ public interface TagService {
     List<Tag> listTag();
 
     /**
+     * 根据id字符串获取Tag列表
+     * @param ids
+     * @return
+     */
+    List<Tag> listTay(String ids);
+    /**
      * 更新标签
      * @param id
      * @param tag

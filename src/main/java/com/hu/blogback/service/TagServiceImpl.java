@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,6 +42,23 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    public List<Tag> listTay(String ids) {
+        return tagRepository.findAllById(converToList(ids));
+    }
+
+    public List<Long> converToList(String ids) {
+        List<Long> listId = new ArrayList<>();
+        if(!"".equals(ids.trim()) && ids != null) {
+            String[] id = ids.split(",");
+            for (String i : id) {
+                listId.add(Long.parseLong(i));
+            }
+        }
+        return listId;
+    }
+
+    @Transactional
+    @Override
     public Tag updateTag(Long id, Tag tag) {
 
         Tag tag1 = tagRepository.getOne(id);
@@ -50,6 +69,7 @@ public class TagServiceImpl implements TagService {
         return tagRepository.save(tag1);
     }
 
+    @Transactional
     @Override
     public void deleteTag(Long id) {
 
