@@ -32,11 +32,26 @@ public interface BlogService {
     Page<Blog> listBlog(Pageable pageable);
 
     /**
+     * 根据条件进行分页查询
+     * @param query 文章标题或内容包含的字符串
+     * @param pageable
+     * @return
+     */
+    Page<Blog> listBlog(String query, Pageable pageable);
+
+    /**
      * 获取前size条推荐的博客信息
      * @param size 推荐博客的数量
      * @return
      */
     List<Blog> listRecommendBlog(Integer size);
+
+    /**
+     * 获取content为html文本的Blog
+     * @param id
+     * @return
+     */
+    Blog getAndConvert(Long id);
 
     /**
      * 添加博客文章

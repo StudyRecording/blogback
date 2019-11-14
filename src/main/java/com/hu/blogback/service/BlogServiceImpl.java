@@ -4,6 +4,7 @@ import com.hu.blogback.dao.BlogRepository;
 import com.hu.blogback.exception.NotFoundException;
 import com.hu.blogback.pojo.Blog;
 import com.hu.blogback.pojo.Type;
+import com.hu.blogback.util.MarkdownUtils;
 import com.hu.blogback.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,11 +84,31 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public Page<Blog> listBlog(String query, Pageable pageable) {
+        return blogRepository.findByQuery('%' + query + '%', pageable);
+    }
+
+    @Override
     public List<Blog> listRecommendBlog(Integer size) {
 
         Sort sort = Sort.by(Sort.Direction.DESC, "updateTime");
         Pageable pageable = PageRequest.of(0,size,sort);
         return blogRepository.listRecommendBlog(pageable);
+    }
+
+    @Override
+    public Blog getAndConvert(Long id) {
+
+        Blog blog = blogRepository.getOne(id);
+        if (blog == null) {
+            throw new NotFoundException("该博客不存在");
+        }
+
+        Blog b = new Blog();
+        BeanUtils.copyProperties(blog, b);
+        String content = b.getContent();
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        return b;
     }
 
     /**
