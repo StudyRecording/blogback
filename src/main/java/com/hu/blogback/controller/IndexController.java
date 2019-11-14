@@ -1,7 +1,9 @@
 package com.hu.blogback.controller;
 
 import com.hu.blogback.pojo.Blog;
+import com.hu.blogback.pojo.Comment;
 import com.hu.blogback.service.BlogService;
+import com.hu.blogback.service.CommentService;
 import com.hu.blogback.service.TagService;
 import com.hu.blogback.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class IndexController {
@@ -24,6 +28,9 @@ public class IndexController {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/")
     public String index(@PageableDefault(size = 6, sort = {"createTime"}, direction = Sort.Direction.DESC)
@@ -38,6 +45,8 @@ public class IndexController {
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable Long id, Model model) {
 
+//        List<Comment> comments = commentService.listComentByBlogId(id);
+        model.addAttribute("comments", commentService.listComentByBlogId(id));
         model.addAttribute("blog", blogService.getAndConvert(id));
         return "blog";
     }

@@ -93,6 +93,10 @@ body {
 .m-block {
     color: #333 !important;
 }
+
+.m-teal {
+    color: #00BB33 !important;
+}
 /*---------display----------*/
 .m-inline-block {
     display: inline-block !important;
