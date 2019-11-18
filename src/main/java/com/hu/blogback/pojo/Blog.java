@@ -19,9 +19,9 @@ public class Blog {
     private String flag;
     private Integer views;
     private String description;
-    private boolean appreciation;
-    private boolean shareStatement;
-    private boolean commentabled;
+    private boolean appreciation; //赞赏
+    private boolean shareStatement;//转载声明
+    private boolean commentabled;//评论
     private boolean published;
     private boolean recommend;
 

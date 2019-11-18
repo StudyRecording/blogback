@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BlogService {
 
@@ -38,6 +39,14 @@ public interface BlogService {
      * @return
      */
     Page<Blog> listBlog(String query, Pageable pageable);
+
+    /**
+     * 获取标签id的所有博客文章
+     * @param tagId
+     * @param pageable
+     * @return
+     */
+    Page<Blog> listBlog(Long tagId, Pageable pageable);
 
     /**
      * 获取前size条推荐的博客信息
@@ -73,4 +82,16 @@ public interface BlogService {
      * @param id
      */
     void deleteBlog(Long id);
+
+    /**
+     * 以年份分类获取博客
+     * @return
+     */
+    Map<String, List<Blog>> archiveBlog();
+
+    /**
+     * 获取博客的条数
+     * @return
+     */
+    Long countBlog();
 }

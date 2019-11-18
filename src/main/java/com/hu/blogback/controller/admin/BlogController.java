@@ -75,7 +75,6 @@ public class BlogController {
         blog.setUser((User) session.getAttribute("user"));
         blog.setType(typeService.getType(blog.getType().getId()));
         blog.setTags(tagService.listTay(blog.getTagIds()));
-
         Blog b = blogService.saveBlog(blog);
         if (b == null) {
             attributes.addFlashAttribute("message", "操作失败");

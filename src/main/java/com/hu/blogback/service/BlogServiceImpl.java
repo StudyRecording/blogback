@@ -16,14 +16,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.criteria.*;
+import java.util.*;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -89,9 +83,22 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public Page<Blog> listBlog(Long tagId, Pageable pageable) {
+
+        return blogRepository.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+
+                Join join = root.join("tags");
+                return criteriaBuilder.equal(join.get("id"), tagId);
+            }
+        }, pageable);
+    }
+
+    @Override
     public List<Blog> listRecommendBlog(Integer size) {
 
-        Sort sort = Sort.by(Sort.Direction.DESC, "updateTime");
+        Sort sort = Sort.by(Sort.Direction.ASC, "updateTime");
         Pageable pageable = PageRequest.of(0,size,sort);
         return blogRepository.listRecommendBlog(pageable);
     }
@@ -104,6 +111,8 @@ public class BlogServiceImpl implements BlogService {
             throw new NotFoundException("该博客不存在");
         }
 
+        blog.setViews(blog.getViews() + 1);
+        updateBlog(blog.getId(), blog);
         Blog b = new Blog();
         BeanUtils.copyProperties(blog, b);
         String content = b.getContent();
@@ -123,13 +132,17 @@ public class BlogServiceImpl implements BlogService {
         if (blog.getId() == null) { //新建blog
             blog.setCreateTime(new Date());
             blog.setViews(0);
+            System.out.println("---------------------:" + blog);
         } else {//修改博客
             Blog b = getBlog(blog.getId());
             blog.setCreateTime(b.getCreateTime());
             blog.setViews(b.getViews());
+            System.out.println("++++++++++++++++++++:" + blog);
         }
         blog.setUpdateTime(new Date());
-        return blogRepository.save(blog);
+        System.out.println("***********************:" + blog);
+        //return blogRepository.save(blog);
+        return  blogRepository.save(blog);
     }
 
     /**
@@ -158,5 +171,20 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void deleteBlog(Long id) {
         blogRepository.deleteById(id);
+    }
+
+    @Override
+    public Map<String, List<Blog>> archiveBlog() {
+        List<String> years = blogRepository.findGroupYear();
+        Map<String, List<Blog>> map = new HashMap<>();
+        for (String year : years) {
+            map.put(year, blogRepository.findByYear(year));
+        }
+        return map;
+    }
+
+    @Override
+    public Long countBlog() {
+        return blogRepository.count();
     }
 }
