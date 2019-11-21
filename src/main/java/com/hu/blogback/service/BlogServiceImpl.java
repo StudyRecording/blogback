@@ -83,6 +83,11 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public Page<Blog> listBlog(Boolean published, Pageable pageable) {
+        return blogRepository.findByQuery(published, pageable);
+    }
+
+    @Override
     public Page<Blog> listBlog(Long tagId, Pageable pageable) {
 
         return blogRepository.findAll(new Specification<Blog>() {

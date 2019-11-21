@@ -41,6 +41,13 @@ public interface BlogService {
     Page<Blog> listBlog(String query, Pageable pageable);
 
     /**
+     * 获取草稿博客列表或者发布博客列表
+     * @param published true：发布状态，false：草稿状态
+     * @param pageable
+     * @return
+     */
+    Page<Blog> listBlog(Boolean published, Pageable pageable);
+    /**
      * 获取标签id的所有博客文章
      * @param tagId
      * @param pageable

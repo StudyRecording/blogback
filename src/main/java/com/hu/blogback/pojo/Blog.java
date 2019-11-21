@@ -16,7 +16,7 @@ public class Blog {
     private String title;
     private String content;
     private String firstPicture;
-    private String flag;
+    private String flag = "原创"; //默认原创
     private Integer views;
     private String description;
     private boolean appreciation; //赞赏

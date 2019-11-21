@@ -32,10 +32,14 @@ public class IndexController {
     @Autowired
     private CommentService commentService;
 
+    private static final Boolean PUBLISH = true;
+
+    private static final Boolean DRAFT = false;
+
     @GetMapping("/")
     public String index(@PageableDefault(size = 6, sort = {"createTime"}, direction = Sort.Direction.DESC)
                                     Pageable pageable, Model model) {
-        model.addAttribute("page", blogService.listBlog(pageable));
+        model.addAttribute("page", blogService.listBlog(PUBLISH, pageable));
         model.addAttribute("types", typeService.listTypeTop(6));
         model.addAttribute("tags", tagService.listTag(10));
         model.addAttribute("recommendBlogs", blogService.listRecommendBlog(8));
