@@ -4,6 +4,7 @@ import com.hu.blogback.pojo.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public interface TagService {
@@ -42,8 +43,19 @@ public interface TagService {
      */
     List<Tag> listTay(String ids);
 
-
+    /**
+     * 获取博客标签文章数前size的标签列表
+     * @param size
+     * @return
+     */
     List<Tag> listTag(Integer size);
+
+    /**
+     * 获取博客标签文章数前size的标签列表(并包含发布博客数量信息)
+     * @param size
+     * @return
+     */
+    List<Tag> listTagTopByPublishedCount(Integer size);
 
     /**
      * 更新标签

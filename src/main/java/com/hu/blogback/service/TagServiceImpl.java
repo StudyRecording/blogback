@@ -2,6 +2,7 @@ package com.hu.blogback.service;
 
 import com.hu.blogback.dao.TagRepository;
 import com.hu.blogback.exception.NotFoundException;
+import com.hu.blogback.pojo.Blog;
 import com.hu.blogback.pojo.Tag;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,24 @@ public class TagServiceImpl implements TagService {
         Sort sort = Sort.by(Sort.Direction.DESC, "blogs.size");
         Pageable pageable = PageRequest.of(0,size,sort);
         return tagRepository.findTop(pageable);
+    }
+
+    @Override
+    public List<Tag> listTagTopByPublishedCount(Integer size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "blogs.size");
+        Pageable pageable = PageRequest.of(0,size,sort);
+        List<Tag> tags = tagRepository.findTop(pageable);
+        int count = 0;
+        for (Tag tag : tags) {
+            for (Blog blog : tag.getBlogs()) {
+                if (blog.isPublished()) {
+                    count++;
+                }
+            }
+            tag.setPublishedBlogCount(count);
+            count = 0;
+        }
+        return tags;
     }
 
     public List<Long> converToList(String ids) {

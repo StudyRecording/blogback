@@ -28,7 +28,8 @@ public class TypeShowController {
     @GetMapping("/types/{id}")
     public String types(@PageableDefault(size = 8, sort = {"id"}, direction = Sort.Direction.DESC)
                                     Pageable pageable, @PathVariable Long id, Model model) {
-        List<Type> types = typeService.listTypeTop(300);
+        //List<Type> types = typeService.listTypeTop(300);
+        List<Type> types = typeService.listTypeTopByPublished(50);
         model.addAttribute("types", types);
         if (id == -1) {
             id = types.get(0).getId();

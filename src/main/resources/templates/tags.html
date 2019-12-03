@@ -50,7 +50,9 @@
 
             <div class="ui attached segment m-padded-tb-large">
                 <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" th:classappend="${tag.id == activeTagId} ? 'teal'" class="ui basic left pointing large label m-margin-tb-tiny" th:each="tag : ${tags}">
-                    <span th:text="${tag.name}">标签1</span> <div th:classappend="${tag.id == activeTagId} ? 'teal'"  class="detail" th:text="${#arrays.length(tag.blogs)}">23</div>
+                    <span th:text="${tag.name}">标签1</span>
+                    <!--<div th:classappend="${tag.id == activeTagId} ? 'teal'"  class="detail" th:text="${#arrays.length(tag.blogs)}">23</div>-->
+                    <div th:classappend="${tag.id == activeTagId} ? 'teal'"  class="detail" th:text="${tag.publishedBlogCount}">23</div>
                 </a>
 
             </div>

@@ -19,6 +19,9 @@ public class Tag {
     @ManyToMany(mappedBy = "tags")
     private List<Blog> blogs = new ArrayList<>();
 
+    @Transient
+    private int publishedBlogCount;
+
     public Tag() {
     }
 
@@ -46,11 +49,21 @@ public class Tag {
         this.blogs = blogs;
     }
 
+    public int getPublishedBlogCount() {
+        return publishedBlogCount;
+    }
+
+    public void setPublishedBlogCount(int publishedBlogCount) {
+        this.publishedBlogCount = publishedBlogCount;
+    }
+
     @Override
     public String toString() {
         return "Tag{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", blogs=" + blogs +
+                ", publishedBlogCount=" + publishedBlogCount +
                 '}';
     }
 }

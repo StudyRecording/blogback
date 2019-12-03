@@ -103,7 +103,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<Blog> listRecommendBlog(Integer size) {
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "updateTime");
+        Sort sort = Sort.by(Sort.Direction.DESC, "updateTime");
         Pageable pageable = PageRequest.of(0,size,sort);
         return blogRepository.listRecommendBlog(pageable);
     }
@@ -191,5 +191,17 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Long countBlog() {
         return blogRepository.count();
+    }
+
+    @Override
+    public Long countBlogByPublished() {
+        List<Blog> blogs = blogRepository.findAll();
+        long count = 0;
+        for (Blog blog : blogs) {
+            if (blog.isPublished()) {
+                count++;
+            }
+        }
+        return count;
     }
 }

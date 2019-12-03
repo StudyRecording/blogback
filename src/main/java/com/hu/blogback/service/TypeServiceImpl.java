@@ -2,6 +2,7 @@ package com.hu.blogback.service;
 
 import com.hu.blogback.dao.TypeRepository;
 import com.hu.blogback.exception.NotFoundException;
+import com.hu.blogback.pojo.Blog;
 import com.hu.blogback.pojo.Type;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,25 @@ public class TypeServiceImpl implements TypeService {
         Sort sort = Sort.by(Sort.Direction.DESC,"blogs.size");
         Pageable pageable = PageRequest.of(0, size, sort);
         return typeRepository.findTop(pageable);
+    }
+
+    @Override
+    public List<Type> listTypeTopByPublished(Integer size) {
+
+        Sort sort = Sort.by(Sort.Direction.DESC,"blogs.size");
+        Pageable pageable = PageRequest.of(0, size, sort);
+        List<Type> types = typeRepository.findTop(pageable);
+        int count = 0;
+        for (Type type : types) {
+            for (Blog blog : type.getBlogs()) {
+                if (blog.isPublished()) {
+                    count++;
+                }
+            }
+            type.setPublishedBlogCount(count);
+            count = 0;
+        }
+        return types;
     }
 
     @Transactional

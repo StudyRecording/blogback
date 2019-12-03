@@ -27,7 +27,8 @@ public class TagShowController {
     public String tags(@PageableDefault(size = 4, sort = {"id"}, direction = Sort.Direction.DESC)
                                    Pageable pageable, @PathVariable Long id, Model model) {
 
-        List<Tag> tags = tagService.listTag();
+        //List<Tag> tags = tagService.listTag();
+        List<Tag> tags = tagService.listTagTopByPublishedCount(50);
         model.addAttribute("tags", tags);
         if(id == -1) {
             id = tags.get(0).getId();

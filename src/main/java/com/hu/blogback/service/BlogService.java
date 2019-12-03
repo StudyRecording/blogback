@@ -101,4 +101,9 @@ public interface BlogService {
      * @return
      */
     Long countBlog();
+
+    /**
+     * 获取已发布的博客数
+     */
+    Long countBlogByPublished();
 }

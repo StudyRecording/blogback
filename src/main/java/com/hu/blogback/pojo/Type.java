@@ -19,6 +19,9 @@ public class Type {
     @OneToMany(mappedBy = "type")
     private List<Blog> blogs = new ArrayList<>();
 
+    @Transient
+    private int publishedBlogCount;
+
     public Type() {
     }
 
@@ -46,11 +49,21 @@ public class Type {
         this.blogs = blogs;
     }
 
+    public int getPublishedBlogCount() {
+        return publishedBlogCount;
+    }
+
+    public void setPublishedBlogCount(int publishedBlogCount) {
+        this.publishedBlogCount = publishedBlogCount;
+    }
+
     @Override
     public String toString() {
         return "Type{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", blogs=" + blogs +
+                ", publishedBlogCount=" + publishedBlogCount +
                 '}';
     }
 }
