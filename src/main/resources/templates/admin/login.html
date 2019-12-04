@@ -45,8 +45,26 @@
 
                     </form>
 
+                    <div class="ui message">
+                        首次使用？<a href="#" class="register">点击注册</a>
+                    </div>
+
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!--弹出层-->
+    <div class="ui fullscreen modal">
+        <div class="header">请填写如下信息进行注册</div>
+        <!--from表单-->
+        <div class="content">
+            <p>这里添加from表单</p>
+        </div>
+
+        <div class="actions">
+            <div class="ui approve button">注册</div>
+            <div class="ui cancel button">取消</div>
         </div>
     </div>
 
@@ -68,6 +86,21 @@
                     }]
                 }
             }
+        });
+        
+        $(".register").click(function () {
+            $('.fullscreen.modal')
+                .modal({
+                    closable  : false,
+                    onDeny    : function(){
+                        window.alert('点击了deny');
+                    },
+                    onApprove : function() {
+                        window.alert('点击了approve');
+                        //添加相关请求操作！
+                    }
+                })
+                .modal('show');
         });
     </script>
 </body>
