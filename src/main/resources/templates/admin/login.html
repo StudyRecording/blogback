@@ -22,7 +22,7 @@
                             后台管理登录
                         </div>
                     </h2>
-                    <form class="ui large form" th:action="@{/admin/login}" method="post">
+                    <form class="ui large form" action="#" th:action="@{/admin/login} " method="post">
                         <div class="ui stacked segment">
                             <div class="field">
                                 <div class="ui left icon input">
@@ -41,7 +41,6 @@
 
                         <div class="ui error mini message"></div>
 
-                        <div class="ui negative mini message" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></div>
 
                     </form>
 
@@ -49,26 +48,56 @@
                         首次使用？<a href="#" class="register">点击注册</a>
                     </div>
 
+                    <div class="ui success message" th:unless="${#strings.isEmpty(success_message)}" th:text="${success_message}"></div>
+
+                    <div class="ui negative mini message" th:unless="${#strings.isEmpty(error_message)}" th:text="${error_message}"></div>
+
                 </div>
             </div>
         </div>
     </div>
 
     <!--弹出层-->
-    <div class="ui fullscreen modal">
+    <div class="ui tiny modal">
         <div class="header">请填写如下信息进行注册</div>
         <!--from表单-->
         <div class="content">
-            <p>这里添加from表单</p>
+            <!--<p>这里添加from表单</p>-->
+            <form class="ui reg form" method="post" th:action="@{/admin/register}">
+                <div class="required field">
+                    <label>Username</label>
+                    <input type="text" id="name" name="username" placeholder="Username">
+                </div>
+                <div class="required field">
+                    <label>Email</label>
+                    <input type="text" id="email" name="email" placeholder="Email">
+                </div>
+                <div class="required field">
+                    <label>Password</label>
+                    <input type="password" id="password" name="pwd" placeholder="Password">
+                </div>
+                <div class="required field">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirm" name="confirm" placeholder="Confirm Password">
+                </div>
+
+                <button class="ui teal button" type="submit">注册</button>
+                <button class="ui cancel red button" type="button">取消</button>
+                <div class="ui error mini message"></div>
+
+            </form>
+
         </div>
 
-        <div class="actions">
-            <div class="ui approve button">注册</div>
-            <div class="ui cancel button">取消</div>
-        </div>
+<!--        <div class="actions">-->
+<!--            <div class="ui approve teal button">注册</div>-->
+<!--            <div class="ui cancel red button">取消</div>-->
+<!--        </div>-->
+
     </div>
 
     <script>
+
         $('.ui.form').form({
             fields: {
                 username: {
@@ -87,21 +116,55 @@
                 }
             }
         });
-        
+
+        //关闭弹出层
+        $('.cancel').click(function () {
+            $('.dimmer.modals').click();
+        });
+
+        //注册管理员账号，弹出层注册页面
         $(".register").click(function () {
-            $('.fullscreen.modal')
-                .modal({
-                    closable  : false,
-                    onDeny    : function(){
-                        window.alert('点击了deny');
-                    },
-                    onApprove : function() {
-                        window.alert('点击了approve');
-                        //添加相关请求操作！
-                    }
-                })
+            $('.tiny.modal')
                 .modal('show');
         });
+
+        $('.ui.reg.form').form({
+            fields: {
+                username: {
+                    identifier:'username',
+                    rules:[{
+                        type:'empty',
+                        prompt:'用户名输入错误'
+                    }]
+                },
+                email: {
+                    identifier:'email',
+                    rules:[{
+                        type:'email',
+                        prompt:'邮箱输入错误'
+                    }]
+                },
+                password: {
+                    identifier:'pwd',
+                    rules:[{
+                        type:'empty',
+                        prompt:'密码输入错误'
+                    }]
+                },
+                confirm: {
+                    identifier:'confirm',
+                    rules:[{
+                            type: 'empty',
+                            prompt:'确认密码输入错误'
+                        },
+                        {
+                            type:'match[password]',
+                            prompt:'两次密码不匹配'
+                    }]
+                }
+            }
+        });
+
     </script>
 </body>
 </html>

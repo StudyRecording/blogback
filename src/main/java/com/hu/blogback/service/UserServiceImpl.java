@@ -6,6 +6,8 @@ import com.hu.blogback.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -13,9 +15,20 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User checkUser(String username, String password) {
+    public User checkUser(String username, String password, Integer type) {
 
-        User user = userRepository.findUserByUsernameAndPassword(username, MD5Util.code(password));
+        User user = userRepository.findUserByUsernameAndPasswordAndType(username, MD5Util.code(password), type);
         return user;
+    }
+
+    @Override
+    public int getAdminCount(Integer type) {
+        return userRepository.countByType(type);
+    }
+
+    @Override
+    @Transactional
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 }
