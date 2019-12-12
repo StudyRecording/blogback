@@ -10,41 +10,90 @@
     <div class="m-padded-tb-massive m-container-tiny">
         <div class="ui container">
 
-            <form class="ui form">
-                <h2 class="ui dividing header">账户信息</h2>
+            <div class="ui tiny negative message" th:if="${err_message} != null">
+                <i class="close icon"></i>
+                <p th:text="${err_message}"></p>
+            </div>
+            <div class="ui tiny success message" th:if="${success_message} != null">
+                <i class="close icon"></i>
+                <p th:text="${success_message}"></p>
+            </div>
 
+            <form class="ui form" th:action="@{/admin/setting}" th:if="${session.user} != null" method="post">
+                <h2 class="ui dividing header">账户信息</h2>
+                <input type="hidden" name="id" th:value="${session.user.id}">
                 <div class="inline field">
                     <label>头像</label>
-                    <a href="http://www.baidu.com" target="_blank">
-                        <img class="ui tiny centered circular image" src="https://picsum.photos/400" >
+                    <a href="#" class="imgButton">
+                        <img class="ui tiny centered circular image" th:src="@{${session.user.avatar}}" id="imgUrl" src="https://picsum.photos/400">
                     </a>
                 </div>
-                <div class="field">
+                <div class="required field m-margin-top-large">
                     <label>昵称</label>
-                    <input type="text" name="user.nickname">
+                    <input type="text" th:value="${session.user.nickname}" name="nickname">
                 </div>
-                <div class="field">
+                <div class="required field m-margin-top-large">
                     <label>邮箱</label>
-                    <input type="email" name="user.email">
+                    <input type="email" th:value="${session.user.email}" name="email">
                 </div>
-                <div class="field">
+                <div class="required field m-margin-top-large">
                     <label>用户登录名</label>
-                    <input type="text" name="user.username">
+                    <input type="text" th:value="${session.user.username}" name="username">
                 </div>
-                <div class="field">
-                    <label>登录密码</label>
-                    <input type="password" name="user.password">
+                <div class="field m-margin-top-large">
+                    <div class="ui grid">
+                        <div class="six column row">
+                            <div class="right floated column">
+                                <button class="ui teal button" type="submit">修改</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<button class="ui teal right button" type="submit">修改</button>-->
                 </div>
 
-                <button class="ui teal button" type="submit">修改</button>
+                <div class="ui error mini message"></div>
             </form>
 
         </div>
     </div>
 
+    <form enctype="multipart/form-data" id="imgForm" style="position: absolute; visibility: hidden;">
+        <input type="file" name="file" class="imgUpload">
+    </form>
+
     <footer th:replace="admin/_fragment :: footer"></footer>
 
     <script>
+
+        $(document).ready(function(){
+            $(".imgUpload").on("change", upload);
+        })
+
+        // 异步上传图片
+        function upload(){
+            var self = this;
+            $.ajax({
+                url: "/admin/uploadImg",
+                type: "post",
+                dataType: "json",
+                cache: false,
+                data: new FormData($("#imgForm")[0]),
+                processData: false,// 不处理数据
+                contentType: false, // 不设置内容类型
+                success: function(data){
+                    if (data != null) {
+                        $("#imgUrl").attr("src", data.url);
+                        $("#avatarImg").attr("src", data.url);
+                    } else {
+                        alert("修改失败!");
+                    }
+                },
+                error: function () {
+                    alert("上传失败！");
+                }
+            })
+        }
+
         $('.ui.image')
             .popup({
                 content : '点击更换头像',
@@ -52,6 +101,49 @@
                 on:'hover'
             })
         ;
+
+        // 关闭提示信息
+        $('.message .close')
+            .on('click', function() {
+                $(this)
+                    .closest('.message')
+                    .transition('fade')
+                ;
+            })
+        ;
+
+        $('.ui.form').form({
+            fields: {
+                username: {
+                    identifier:'username',
+                    rules:[{
+                        type:'empty',
+                        prompt:'请输入用户名'
+                    }]
+                },
+                email: {
+                    identifier:'email',
+                    rules:[{
+                        type:'empty',
+                        prompt:'邮箱输入错误'
+                    }]
+                },
+                nickname: {
+                    identifier:'nickname',
+                    rules:[{
+                        type:'empty',
+                        prompt:'请输入昵称'
+                    }]
+                }
+            }
+        });
+
+        // 点击图像
+        $('.imgButton').click(function () {
+            $('.imgUpload').click();
+        });
+
+
     </script>
 </body>
 </html>

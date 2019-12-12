@@ -14,7 +14,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/admin");
-            return true;
+            return false;
         }
         return true;
     }

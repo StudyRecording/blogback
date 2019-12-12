@@ -27,7 +27,12 @@ public interface UserService {
     int getAdminCount(Integer type);
 
     /**
-     * 注册一个用户
+     * 根据 Id获取用户信息
+     */
+    User getUser(Long id);
+
+    /**
+     * 注册或修改一个用户
      * @param user
      * @return
      */
