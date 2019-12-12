@@ -110,6 +110,10 @@ body {
     max-width: 60em !important;
     margin: auto !important;
 }
+.m-container-tiny {
+    max-width: 50em !important;
+    margin: auto !important;
+}
 /*--------position---------------*/
 .m-right-top {
     position: absolute;

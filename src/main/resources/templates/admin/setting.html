@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragment::head(~{::title})">
+    <meta charset="UTF-8">
+    <title>管理员账户设置</title>
+</head>
+<body>
+    <nav th:replace="admin/_fragment :: nav(-1)"></nav>
+
+    <div class="m-padded-tb-massive m-container-tiny">
+        <div class="ui container">
+
+            <form class="ui form">
+                <h2 class="ui dividing header">账户信息</h2>
+
+                <div class="inline field">
+                    <label>头像</label>
+                    <a href="http://www.baidu.com" target="_blank">
+                        <img class="ui tiny centered circular image" src="https://picsum.photos/400" >
+                    </a>
+                </div>
+                <div class="field">
+                    <label>昵称</label>
+                    <input type="text" name="user.nickname">
+                </div>
+                <div class="field">
+                    <label>邮箱</label>
+                    <input type="email" name="user.email">
+                </div>
+                <div class="field">
+                    <label>用户登录名</label>
+                    <input type="text" name="user.username">
+                </div>
+                <div class="field">
+                    <label>登录密码</label>
+                    <input type="password" name="user.password">
+                </div>
+
+                <button class="ui teal button" type="submit">修改</button>
+            </form>
+
+        </div>
+    </div>
+
+    <footer th:replace="admin/_fragment :: footer"></footer>
+
+    <script>
+        $('.ui.image')
+            .popup({
+                content : '点击更换头像',
+                position: 'right center',
+                on:'hover'
+            })
+        ;
+    </script>
+</body>
+</html>
