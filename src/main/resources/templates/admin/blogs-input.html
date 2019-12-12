@@ -50,7 +50,7 @@
     </div>
 
     <!--内容-->
-    <div class="m-padded-tb-huge m-container">
+    <div class="m-padded-tb-huge m-container-large">
         <div class="ui container">
             <form action="#" id="blog-form" method="post" th:action="@{/admin/blogs}" th:object="${blog}" class="ui form">
                 <input type="hidden" name="published" th:value="*{published}">
@@ -72,8 +72,8 @@
                 </div>
 
                 <div class="required field">
-                    <div id="md-content" style="z-index: 1">
-                        <textarea name="content" placeholder="博客内容" style="display: none" th:text="*{content}"></textarea>
+                    <div id="md-content" style="z-index: 1;">
+                        <textarea name="content" placeholder="博客内容" style="display: none;" th:text="*{content}"></textarea>
                     </div>
 
                 </div>
@@ -214,9 +214,12 @@
                 height: 640,
                 syncScrolling: "single",
                 // path: "../static/lib/editormd/lib/"
-                path: "/lib/editormd/lib/"
-
+                path: "/lib/editormd/lib/",
+                imageUpload    : true,
+                imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL : "/admin/articleImage"
             });
+
         });
 
         // $(".menu.toggle").click(function () {
@@ -269,7 +272,9 @@
            }
         });
 
-
+        // $('.editormd-dialog .editormd-image-dialog').click(function () {
+        //     $('.editormd-dialog .editormd-image-dialog').height(600);
+        // });
     </script>
 </body>
 </html>

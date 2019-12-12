@@ -5,24 +5,29 @@ import com.hu.blogback.pojo.User;
 import com.hu.blogback.service.BlogService;
 import com.hu.blogback.service.TagService;
 import com.hu.blogback.service.TypeService;
+import com.hu.blogback.util.FileUploadUtil;
+import com.hu.blogback.vo.ArticleImage;
 import com.hu.blogback.vo.BlogQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
 public class BlogController {
+
+    @Value("${spring.saveFile.path}")
+    private String realPath;
 
     @Autowired
     private BlogService blogService;
@@ -91,6 +96,32 @@ public class BlogController {
         blogService.deleteBlog(id);
         attributes.addFlashAttribute("message", " 删除成功");
         return "redirect:/admin/blogs";
+    }
+
+    @PostMapping("/articleImage")
+    @ResponseBody
+    public ArticleImage articleImageUpload(
+            @RequestParam(value = "editormd-image-file") MultipartFile file,
+            HttpServletRequest request) {
+
+        String url = FileUploadUtil.imageUpload(file,
+                realPath,
+                FileUploadUtil.ARTICLE_IMAGE_PATH,
+                request);
+
+        ArticleImage articleImage = new ArticleImage();
+        if (url == null) {
+            articleImage.setMessage("上传失败！");
+            articleImage.setSuccess(0);
+            articleImage.setUrl("");
+        } else {
+            articleImage.setMessage("上传成功!");
+            articleImage.setSuccess(1);
+            articleImage.setUrl(url);
+        }
+
+        return articleImage;
+
     }
 
 }

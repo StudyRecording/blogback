@@ -15,11 +15,14 @@ import java.util.UUID;
  */
 public class FileUploadUtil {
 
-    // 图片保存的相对路径
+    // 头像保存的相对路径
     public static final String IMAGE_PATH =  "/imagePath/";
 
+    //文章图片保存的相对路径
+    public static final String ARTICLE_IMAGE_PATH = "/articleImagePath/";
+
     /**
-     * 单个文件上传
+     * 单个图片上传
      * @param uploadFile 上传的文件
      * @param realPath   保存在本地路径中的映射部分
      * @param relativePath 相对路径
