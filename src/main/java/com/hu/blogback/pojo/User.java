@@ -17,6 +17,8 @@ public class User {
     private String password;
     private String email;
     private String avatar;
+
+    // 0：系统管理员，1：vip用户，2：普通用户、游客
     private Integer type;
 
     @Temporal(TemporalType.TIMESTAMP)

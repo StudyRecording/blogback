@@ -6,6 +6,7 @@ import com.hu.blogback.service.BlogService;
 import com.hu.blogback.service.CommentService;
 import com.hu.blogback.service.TagService;
 import com.hu.blogback.service.TypeService;
+import com.hu.blogback.util.NonsenseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,14 +33,12 @@ public class IndexController {
     @Autowired
     private CommentService commentService;
 
-    private static final Boolean PUBLISH = true;
-
-    private static final Boolean DRAFT = false;
-
     @GetMapping("/")
     public String index(@PageableDefault(size = 6, sort = {"createTime"}, direction = Sort.Direction.DESC)
                                     Pageable pageable, Model model) {
-        model.addAttribute("page", blogService.listBlog(PUBLISH, pageable));
+
+        Boolean isPublished = NonsenseUtil.ArticlePublish.PUBLISH.isPublished();
+        model.addAttribute("page", blogService.listBlog(isPublished, pageable));
         //model.addAttribute("types", typeService.listTypeTop(6));
         model.addAttribute("types", typeService.listTypeTopByPublished(6));
         //model.addAttribute("tags", tagService.listTag(10));

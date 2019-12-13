@@ -3,6 +3,7 @@ package com.hu.blogback.controller.admin;
 import com.hu.blogback.pojo.User;
 import com.hu.blogback.service.UserService;
 import com.hu.blogback.util.MD5Util;
+import com.hu.blogback.util.NonsenseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +34,7 @@ public class LoginController {
                         RedirectAttributes attributes) {
 
 
-        User user = userService.checkUser(username, password, UserService.ADMIN);
+        User user = userService.checkUser(username, password, NonsenseUtil.UserType.ADMIN.getData());
 
         if (user != null) {
             user.setPassword(null);
@@ -55,7 +56,8 @@ public class LoginController {
                 && email != null && !"".equals(email.trim())
                 && pwd != null && !"".equals(pwd.trim())) {
 
-            if (userService.getAdminCount(UserService.ADMIN) > 0) {
+            int userType = NonsenseUtil.UserType.ADMIN.getData();
+            if (userService.getAdminCount(userType) > 0) {
                 attributes.addFlashAttribute("error_message", "已有管理员，不可再次注册管理员账户！");
                 return "redirect:/admin";
             }
@@ -66,7 +68,7 @@ public class LoginController {
             user.setCreateTime(new Date());
             user.setEmail(email);
             user.setNickname(username);
-            user.setType(UserService.ADMIN);
+            user.setType(userType);
             user.setUpdateTime(new Date());
             user.setUsername(username);
 

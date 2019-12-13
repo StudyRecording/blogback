@@ -4,12 +4,6 @@ import com.hu.blogback.pojo.User;
 
 public interface UserService {
 
-    // 管理员
-    final static int ADMIN = 0;
-
-    // 普通用户
-    final static int NORMAL = 1;
-
     /**
      * 获取账户信息
      * @param username
