@@ -3,14 +3,12 @@ package com.hu.blogback.controller.admin;
 import com.hu.blogback.pojo.User;
 import com.hu.blogback.service.UserService;
 import com.hu.blogback.util.FileUploadUtil;
+import com.hu.blogback.util.MD5Util;
 import com.hu.blogback.vo.AvatarUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +27,11 @@ public class SettingController {
     public String setting() {
 
         return "admin/setting";
+    }
+
+    @GetMapping("/password")
+    public String password() {
+        return "admin/password";
     }
 
     @PostMapping("/setting")
@@ -92,5 +95,39 @@ public class SettingController {
         AvatarUrl avatarUrl = new AvatarUrl();
         avatarUrl.setUrl(url);
         return avatarUrl;
+    }
+
+    @PostMapping("/password")
+    public String password(String oldPassword,
+                           String newPassword,
+                           String confirmPassword,
+                           HttpServletRequest request) {
+
+        if (!newPassword.equals(confirmPassword)) {
+            request.setAttribute("err_message", "确认密码和新密码不匹配");
+            return "admin/password";
+        }
+
+        if (oldPassword == null || "".equals(oldPassword.trim()) ||
+            newPassword == null || "".equals(newPassword.trim()) ||
+            confirmPassword == null || "".equals(confirmPassword.trim())) {
+
+            request.setAttribute("err_message", "输入错误");
+            return "admin/password";
+        }
+
+        User user = (User) request.getSession().getAttribute("user");
+        User user1 = userService.getUser(user.getId());
+        oldPassword = MD5Util.code(oldPassword);
+        if (!user1.getPassword().equals(oldPassword)) {
+            request.setAttribute("err_message", "密码输入错误");
+            return "admin/password";
+        }
+
+        newPassword = MD5Util.code(newPassword);
+        user1.setPassword(newPassword);
+        userService.saveUser(user1);
+        request.setAttribute("success_message", "密码修改成功");
+        return "admin/password";
     }
 }
