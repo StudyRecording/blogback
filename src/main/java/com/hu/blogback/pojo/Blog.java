@@ -14,6 +14,8 @@ public class Blog {
     private Long id;
 
     private String title;
+
+    @Column(columnDefinition = "Text")
     private String content;
     private String firstPicture;
     private String flag = "原创"; //默认原创
