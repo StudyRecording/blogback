@@ -2,12 +2,13 @@ package com.hu.blogback.pojo;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "t_tag")
-public class Tag {
+public class Tag implements Serializable {
 
     @Id
     @GeneratedValue

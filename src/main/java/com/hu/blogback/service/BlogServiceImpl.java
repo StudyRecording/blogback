@@ -8,6 +8,8 @@ import com.hu.blogback.util.MarkdownUtils;
 import com.hu.blogback.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,7 @@ import javax.persistence.criteria.*;
 import java.util.*;
 
 @Service
+@CacheConfig(cacheNames = "blog_cache")
 public class BlogServiceImpl implements BlogService {
 
     @Autowired
@@ -101,6 +104,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Cacheable(key = "#root.methodName")
     public List<Blog> listRecommendBlog(Integer size) {
 
         Sort sort = Sort.by(Sort.Direction.DESC, "updateTime");
@@ -109,6 +113,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Cacheable
     public Blog getAndConvert(Long id) {
 
         Blog blog = blogRepository.getOne(id);

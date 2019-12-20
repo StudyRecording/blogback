@@ -4,6 +4,8 @@ import com.hu.blogback.dao.CommentRepository;
 import com.hu.blogback.pojo.Comment;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +14,14 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@CacheConfig(cacheNames = "footer_cache")
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CommentRepository commentRepository;
 
     @Override
+    @Cacheable(key = "#root.target")
     public List<Comment> listComentByBlogId(Long id) {
 
         Sort sort = Sort.by(Sort.Direction.DESC,"createTime");
