@@ -24,7 +24,7 @@
 <nav th:fragment="nav(n)" class="ui sticky inverted attached segment m-padded-tb-tiny m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal header item">Nonsense Code</h2>
+            <h2 class="ui teal header item" th:text="#{nav.title}">Nonsense Code</h2>
             <a href="#" th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n == 1} ? 'active'"><i
                     class="home icon"></i>首页</a>
             <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n == 2} ? 'active'"><i
@@ -48,9 +48,6 @@
     <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
         <i class="sidebar icon"></i>
     </a>
-    <script>
-        $('.ui.sticky').sticky();
-    </script>
 </nav>
 
 <!--页脚-->
@@ -59,7 +56,7 @@
         <div class="ui inverted divided stackable grid">
             <div class="three wide column">
                 <div class="ui link list">
-                    <div class="item">
+                    <div class="item"><!--#{fragment.footer.image}-->
                         <img src="../static/images/wechat.png" th:src="@{/images/wechat.png}" class="ui rounded image" alt="" style="width: 110px">
                     </div>
                 </div>
@@ -80,18 +77,19 @@
             <div class="three wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item">Email：17834356813@163.com</a>
-                    <a href="#" class="item">QQ：2876397800</a>
+                    <a href="#" class="item" th:text="#{footer.email}"></a>
+                    <a href="#" class="item" th:text="#{footer.qq}"></a>
                 </div>
             </div>
             <div class="seven wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">My Blog</h4>
-                <p class="m-text-thin m-text-spaced m-opacity-mini">
-                    这是我的个人博客******************************************************</p>
+                <p class="m-text-thin m-text-spaced m-opacity-mini" th:text="#{footer.blog.info}">
+                    这是我的个人博客******************************************************
+                </p>
             </div>
         </div>
-        <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright 2019 Nonsense code Designed by Me</p>
+        <!--<div class="ui inverted section divider"></div>-->
+        <!--<p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright 2019 Nonsense code Designed by Me</p>-->
     </div>
 
     <script>

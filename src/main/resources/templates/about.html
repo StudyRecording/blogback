@@ -46,12 +46,11 @@
                         <div class="ui header">关于我</div>
                     </div>
                     <div class="ui attached segment">
-                        <p class="m-text">关于我的一些介绍</p>
-                        <p class="m-text">
-                            关于我的一些介绍关于我的一些介绍关于我的一些介绍关于我的一些介绍关于我的一些介绍
-                            关于我的一些介绍关于我的一些介绍关于我的一些介绍关于我的一些介绍
+                        <p class="m-text" th:text="#{about.me.title}"></p>
+                        <p class="m-text" th:text="#{about.me.content}">
+
                         </p>
-                        <p class="m-text">关于我的一些介绍</p>
+                        <!--<p class="m-text">关于我的一些介绍</p>-->
                     </div>
                     <div class="ui attached segment">
                         <div class="ui red basic label m-margin-tb-tiny">编程</div>
@@ -133,6 +132,10 @@
             popup:$('.wechat-qr'),
             position:'bottom center'
         });
+
+        $('.ui.sticky')
+            .sticky()
+        ;
     </script>
 </body>
 </html>
