@@ -3,6 +3,7 @@ package com.hu.blogback.controller;
 import com.hu.blogback.pojo.Tag;
 import com.hu.blogback.service.BlogService;
 import com.hu.blogback.service.TagService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
+@Api(tags = "文章相关标签接口")
 @Controller
 public class TagShowController {
 

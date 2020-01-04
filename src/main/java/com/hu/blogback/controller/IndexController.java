@@ -7,10 +7,12 @@ import com.hu.blogback.service.CommentService;
 import com.hu.blogback.service.TagService;
 import com.hu.blogback.service.TypeService;
 import com.hu.blogback.util.NonsenseUtil;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(tags = "文章首页的相关接口")
 @Controller
 public class IndexController {
 

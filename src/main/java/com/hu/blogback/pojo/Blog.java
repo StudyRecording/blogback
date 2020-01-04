@@ -1,11 +1,15 @@
 package com.hu.blogback.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@ApiModel("这是blog的实体类")
 @Entity
 @Table(name = "t_blog")
 public class Blog implements Serializable {
@@ -14,18 +18,38 @@ public class Blog implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @ApiModelProperty("这是博客主题")
     private String title;
 
+    @ApiModelProperty("这是博客内容")
     @Column(columnDefinition = "Text")
     private String content;
+
+    @ApiModelProperty("博客首图的url")
     private String firstPicture;
+
+    @ApiModelProperty("博客的类型")
     private String flag = "原创"; //默认原创
+
+    @ApiModelProperty("博客的观看次数")
     private Integer views;
+
+    @ApiModelProperty("博客的简单描述")
     private String description;
+
+    @ApiModelProperty("博客是否赞赏")
     private boolean appreciation; //赞赏
+
+    @ApiModelProperty("博客是否是转载")
     private boolean shareStatement;//转载声明
+
+    @ApiModelProperty("博客是否评论")
     private boolean commentabled;//评论
+
+    @ApiModelProperty("博客是否发布")
     private boolean published;
+
+    @ApiModelProperty("博客是否推荐")
     private boolean recommend;
 
     @Temporal(TemporalType.TIMESTAMP)

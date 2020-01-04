@@ -4,6 +4,7 @@ import com.hu.blogback.pojo.Type;
 import com.hu.blogback.service.BlogService;
 import com.hu.blogback.service.TypeService;
 import com.hu.blogback.vo.BlogQuery;
+import io.swagger.annotations.Api;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
+@Api(tags = "文章相关分类接口")
 @Controller
 public class TypeShowController {
 
