@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragment :: head(~{:: title})">
+    <meta charset="UTF-8">
+    <title>评论管理</title>
+</head>
+<body>
+<nav th:replace="admin/_fragment :: nav(4)"></nav>
+
+<div class="m-padded-tb-huge m-container-huge">
+    <div class="ui container">
+        <h1 class="ui dividing header">
+            <i class="ui comment outline icon"></i>
+            <div class="content">
+                <label style="vertical-align: inherit;">留言评论</label>
+            </div>
+        </h1>
+
+        <div class="ui container">
+
+            <div class="ui styled fluid accordion">
+                <div>
+                    <div class="title">
+
+                        <div class="ui fluid vertical">
+                            <a class="item">
+                        <span>
+                            <i class="mini teal circle icon"></i><span>文章题目</span>
+                        </span>
+                                <div class="ui orange basic label m-padded-lr-tiny button" onclick="cc()" style="margin-left: 80em !important;">忽略</div>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="content">
+                        <!--<p class="transition hidden">正文</p>-->
+                        <!--评论模块-->
+                        <div class="ui small comments">
+                            <h3 class="ui dividing header">该片文章评论</h3>
+                            <div class="comment">
+                                <a class="avatar">
+                                    <img src="https://picsum.photos/100">
+                                </a>
+                                <div class="content">
+                                    <a class="author">Matt</a>
+                                    <div class="metadata">
+                                        <span class="date">Today at 5:42PM</span>
+                                    </div>
+                                    <div class="text">
+                                        How artistic!
+                                    </div>
+                                    <div class="actions">
+                                        <a class="reply">Reply</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <a class="avatar">
+                                    <img src="https://picsum.photos/100">
+                                </a>
+                                <div class="content">
+                                    <a class="author">Elliot Fu</a>
+                                    <div class="metadata">
+                                        <span class="date">Yesterday at 12:30AM</span>
+                                    </div>
+                                    <div class="text">
+                                        <p>This has been very useful for my research. Thanks as well!</p>
+                                    </div>
+                                    <div class="actions">
+                                        <a class="reply">Reply</a>
+                                    </div>
+                                </div>
+                                <div class="comments">
+                                    <div class="comment">
+                                        <a class="avatar">
+                                            <img src="https://picsum.photos/100">
+                                        </a>
+                                        <div class="content">
+                                            <a class="author">Jenny Hess</a>
+                                            <div class="metadata">
+                                                <span class="date">Just now</span>
+                                            </div>
+                                            <div class="text">
+                                                Elliot you are always so right :)
+                                            </div>
+                                            <div class="actions">
+                                                <a class="reply">Reply</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <a class="avatar">
+                                    <img src="https://picsum.photos/100">
+                                </a>
+                                <div class="content">
+                                    <a class="author">Joe Henderson</a>
+                                    <div class="metadata">
+                                        <span class="date">5 days ago</span>
+                                    </div>
+                                    <div class="text">
+                                        Dude, this is awesome. Thanks so much
+                                    </div>
+                                    <div class="actions">
+                                        <a class="reply">Reply</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <form class="ui reply form">
+                                <div class="field">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="ui blue labeled submit icon button">
+                                    <i class="icon edit"></i> Add Reply
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <div>
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        题目2
+                    </div>
+                    <div class="content">
+                        <p class="transition hidden">正文2</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        题目3
+                    </div>
+                    <div class="content">
+                        <p class="transition hidden">正文3</p>
+                        <p class="transition hidden">正文4</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="admin/_fragment :: footer"></footer>
+
+<script>
+    /*.trigger.example*/
+    $('.accordion')
+        .accordion({
+            selector: {
+                trigger: '.title'
+            },
+            duration: 1000
+        })
+    ;
+
+    function cc() {
+        alert("on click")
+    }
+</script>
+</body>
+</html>
