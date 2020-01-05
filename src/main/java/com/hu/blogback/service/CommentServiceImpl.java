@@ -30,12 +30,16 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment saveComment(Comment comment) {
 
-        Long parentCommentId = comment.getParentComment().getId();
-        if(parentCommentId != -1) {
-            comment.setParentComment(commentRepository.getOne(parentCommentId));
-        } else {
-            comment.setParentComment(null);
+        if (comment.getParentComment() != null) {
+
+            Long parentCommentId = comment.getParentComment().getId();
+            if(parentCommentId != -1) {
+                comment.setParentComment(commentRepository.getOne(parentCommentId));
+            } else {
+                comment.setParentComment(null);
+            }
         }
+
         comment.setCreateTime(new Date());
         return commentRepository.save(comment);
     }
@@ -82,7 +86,7 @@ public class CommentServiceImpl implements CommentService {
 
         for (Comment comment : comments) {
             List<Comment> replys1 = comment.getComments();
-            for(Comment reply1 : replys1) {
+            for(Comment reply1 : replys1)  {
                 //循环迭代，找出子代，存放在tempReplys中
                 recursively(reply1);
             }

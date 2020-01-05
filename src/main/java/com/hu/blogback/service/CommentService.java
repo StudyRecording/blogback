@@ -9,6 +9,7 @@ public interface CommentService {
 
     /**
      * 获取同一个博客的评论列表
+     * List中存储的是顶级评论，子集评论放在顶级评论的Comments属性中
      * @param id
      * @return
      */

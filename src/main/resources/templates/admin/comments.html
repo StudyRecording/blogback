@@ -25,7 +25,7 @@
             <div class="ui fluid accordion">
                 <div th:each="blog: ${blogs}">
                     <!--博客标题-->
-                    <div class="title">
+                    <div class="title" th:attr="data-blogid=${blog.id}" onclick="blogClick(this)">
 
                         <div class="ui fluid vertical">
                             <a class="item">
@@ -132,6 +132,16 @@
         $("[name='content']").attr("placeholder", '@'+commentNickname).focus();
         $("[name='parentComment.id']").val(commentId);
         //$(window).scrollTo($("#comment-form"),500);
+    }
+
+    function blogClick(obj) {
+        var blogId = $(obj).data("blogid");
+        //alert(blogId);
+        $.get("/admin/view/" + blogId, function (data) {
+            if (data == 1) {
+                //alert("成功")
+            }
+        })
     }
 </script>
 </body>

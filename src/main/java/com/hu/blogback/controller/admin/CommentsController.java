@@ -5,13 +5,10 @@ import com.hu.blogback.pojo.Comment;
 import com.hu.blogback.pojo.User;
 import com.hu.blogback.service.BlogService;
 import com.hu.blogback.service.CommentService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -55,5 +52,40 @@ public class CommentsController {
         return "redirect:/admin/comments";
     }
 
+    @GetMapping("/view/{id}")
+    @ResponseBody
+    public Integer view(@PathVariable("id") Long id) {
+
+        List<Comment> comments = commentService.listComentByBlogId(id);
+        if (comments != null) {
+            for (Comment comment :
+                    comments) {
+                if (!comment.isView()) {
+                    comment.setView(true);
+                    commentService.saveComment(comment);
+                }
+
+                // 修改其子级评论
+                List<Comment> childs = comment.getComments();
+                if (childs != null) {
+                    for (Comment c :
+                            childs) {
+                        if (!c.isView()) {
+                            c.setView(true);
+                            commentService.saveComment(c);
+                        }
+                    }
+                }
+
+
+            }
+
+            // 修改成功（暂时先这样吧，懒得改了）
+            return 1;
+        }
+
+        //修改失败
+        return 0;
+    }
 
 }
