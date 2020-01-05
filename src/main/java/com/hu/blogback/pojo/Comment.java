@@ -24,13 +24,15 @@ public class Comment implements Serializable {
     @ManyToOne
     private Blog blog;
 
-    @OneToMany(mappedBy = "parentComment")
+    @OneToMany(mappedBy = "parentComment", fetch = FetchType.EAGER)
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne
     private Comment parentComment;
 
     private boolean adminComment;
+
+    private boolean view;
 
     public Comment() {
     }
@@ -115,6 +117,14 @@ public class Comment implements Serializable {
         this.adminComment = adminComment;
     }
 
+    public boolean isView() {
+        return view;
+    }
+
+    public void setView(boolean view) {
+        this.view = view;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
@@ -124,6 +134,9 @@ public class Comment implements Serializable {
                 ", content='" + content + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", createTime=" + createTime +
+                ", parentComment=" + parentComment +
+                ", adminComment=" + adminComment +
+                ", view=" + view +
                 '}';
     }
 }

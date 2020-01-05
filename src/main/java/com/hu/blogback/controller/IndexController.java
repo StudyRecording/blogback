@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = "文章首页的相关接口")
 @Controller
 public class IndexController {
 

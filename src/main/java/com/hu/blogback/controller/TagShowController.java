@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@Api(tags = "文章相关标签接口")
 @Controller
 public class TagShowController {
 

@@ -1,6 +1,7 @@
 package com.hu.blogback.service;
 
 import com.hu.blogback.dao.CommentRepository;
+import com.hu.blogback.pojo.Blog;
 import com.hu.blogback.pojo.Comment;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,19 +10,16 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
-@CacheConfig(cacheNames = "footer_cache")
+//@CacheConfig(cacheNames = "footer_cache")
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CommentRepository commentRepository;
 
     @Override
-    @Cacheable(key = "#root.target")
     public List<Comment> listComentByBlogId(Long id) {
 
         Sort sort = Sort.by(Sort.Direction.DESC,"createTime");
@@ -40,6 +38,22 @@ public class CommentServiceImpl implements CommentService {
         }
         comment.setCreateTime(new Date());
         return commentRepository.save(comment);
+    }
+
+    @Override
+    public List<Comment> listCommentByIsView(Boolean isView) {
+        List<Comment> byView = commentRepository.findByViewOrderById(isView);
+        return byView;
+    }
+
+    @Override
+    public List<Blog> listBlogByComment(Boolean view) {
+        Set<Blog> blogs = new HashSet<>();
+        List<Comment> comments = listCommentByIsView(view);
+        for (Comment comment : comments) {
+            blogs.add(comment.getBlog());
+        }
+        return new ArrayList<>(blogs);
     }
 
     /**

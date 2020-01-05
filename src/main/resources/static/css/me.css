@@ -72,6 +72,9 @@ body {
 .m-margin-bottom-small {
     margin-bottom: 0.5em !important;
 }
+.m-margin-bottom-tiny {
+    margin-bottom: 0.1em !important;
+}
 /*-------text---------*/
 .m-text {
     font-weight: 300 !important;

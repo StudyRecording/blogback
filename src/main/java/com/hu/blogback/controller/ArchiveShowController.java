@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Api(tags = "文章归档的接口")
 @Controller
 public class ArchiveShowController {
 

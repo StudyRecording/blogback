@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 
-@Api("文章评论接口")
 @Controller
 public class CommentController {
 
@@ -41,6 +40,7 @@ public class CommentController {
         Long blogId = comment.getBlog().getId();
         comment.setBlog(blogService.getBlog(blogId));
         User user = (User) session.getAttribute("user");
+        System.out.println("---------------Comment:" + comment);
         if (user != null && user.getNickname().equals(comment.getNickname().trim()) && user.getEmail().equals(comment.getEmail().trim()) ) {
             comment.setAvatar(user.getAvatar());
             comment.setAdminComment(true);

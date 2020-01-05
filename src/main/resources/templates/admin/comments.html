@@ -7,139 +7,108 @@
 <body>
 <nav th:replace="admin/_fragment :: nav(4)"></nav>
 
-<div class="m-padded-tb-huge m-container-huge">
+<div class="m-padded-tb-huge m-container-tiny">
     <div class="ui container">
+
         <h1 class="ui dividing header">
             <i class="ui comment outline icon"></i>
-            <div class="content">
+            <div class="content" style="width: 652px !important;">
                 <label style="vertical-align: inherit;">留言评论</label>
+                <button class="ui mini red basic button right floated" style="margin-top: 0.8rem !important;">忽略全部</button>
             </div>
+
         </h1>
 
         <div class="ui container">
 
-            <div class="ui styled fluid accordion">
-                <div>
+            <!--查看评论-->
+            <div class="ui fluid accordion">
+                <div th:each="blog: ${blogs}">
+                    <!--博客标题-->
                     <div class="title">
 
                         <div class="ui fluid vertical">
                             <a class="item">
-                        <span>
-                            <i class="mini teal circle icon"></i><span>文章题目</span>
-                        </span>
-                                <div class="ui orange basic label m-padded-lr-tiny button" onclick="cc()" style="margin-left: 80em !important;">忽略</div>
+                                <span>
+                                    <i class="mini teal circle icon"></i><span th:text="${blog.title}">文章题目</span>
+                                </span>
                             </a>
                         </div>
 
                     </div>
-                    <div class="content">
-                        <!--<p class="transition hidden">正文</p>-->
+                    <div class="content" th:if="${blog.comments} != null">
                         <!--评论模块-->
-                        <div class="ui small comments">
-                            <h3 class="ui dividing header">该片文章评论</h3>
-                            <div class="comment">
-                                <a class="avatar">
-                                    <img src="https://picsum.photos/100">
+                        <div class="ui small comments" style="width: 100%">
+                            <div class="comment" th:each="comment : ${blog.comments}">
+                            <a class="avatar">
+                                <img src="https://picsum.photos/100" th:src="@{${comment.avatar}}">
+                            </a>
+                            <div class="content">
+                                <a class="author">
+                                    <span th:text="${comment.nickname}">Matt</span>
+                                    <div class="ui mini basic teal left pointing label m-padded-mini" th:if="${comment.adminComment}">博主</div>
                                 </a>
-                                <div class="content">
-                                    <a class="author">Matt</a>
-                                    <div class="metadata">
-                                        <span class="date">Today at 5:42PM</span>
-                                    </div>
-                                    <div class="text">
-                                        How artistic!
-                                    </div>
-                                    <div class="actions">
-                                        <a class="reply">Reply</a>
-                                    </div>
+                                <div class="metadata">
+                                    <span class="date" th:text="${#dates.format(comment.createTime, 'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
+                                </div>
+                                <div class="text" th:text="${comment.content}">
+                                    How artistic!
+                                </div>
+                                <div class="actions">
+                                    <a class="reply"
+                                       data-commentid="1"
+                                       data-commentnickname="Matt"
+                                       th:attr="data-commentid=${comment.id},
+                                            data-commentnickname=${comment.nickname}"
+                                       onclick="reply(this)">回复</a>
                                 </div>
                             </div>
-                            <div class="comment">
-                                <a class="avatar">
-                                    <img src="https://picsum.photos/100">
-                                </a>
-                                <div class="content">
-                                    <a class="author">Elliot Fu</a>
-                                    <div class="metadata">
-                                        <span class="date">Yesterday at 12:30AM</span>
-                                    </div>
-                                    <div class="text">
-                                        <p>This has been very useful for my research. Thanks as well!</p>
-                                    </div>
-                                    <div class="actions">
-                                        <a class="reply">Reply</a>
-                                    </div>
-                                </div>
-                                <div class="comments">
-                                    <div class="comment">
-                                        <a class="avatar">
-                                            <img src="https://picsum.photos/100">
+                            <!--二级评论-->
+                            <div class="comments" th:if="${#arrays.length(comment.comments)}">
+                                <div class="comment" th:each="reply : ${comment.comments}">
+                                    <a class="avatar">
+                                        <img src="https://picsum.photos/100" th:src="@{${reply.avatar}}">
+                                    </a>
+                                    <div class="content">
+                                        <a class="author" >
+                                            <span th:text="${reply.nickname}">Matt</span>
+                                            <div class="ui mini basic teal left pointing label m-padded-mini" th:if="${reply.adminComment}">博主</div>
+                                            &nbsp;<span th:text="|@${reply.parentComment.nickname}|" class="m-teal">@小白</span>
                                         </a>
-                                        <div class="content">
-                                            <a class="author">Jenny Hess</a>
-                                            <div class="metadata">
-                                                <span class="date">Just now</span>
-                                            </div>
-                                            <div class="text">
-                                                Elliot you are always so right :)
-                                            </div>
-                                            <div class="actions">
-                                                <a class="reply">Reply</a>
-                                            </div>
+                                        <div class="metadata">
+                                            <span class="date" th:text="${#dates.format(reply.createTime, 'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
+                                        </div>
+                                        <div class="text" th:text="${reply.content}">
+                                            How artistic!
+                                        </div>
+                                        <div class="actions">
+                                            <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${reply.id}, data-commentnickname=${reply.nickname}" onclick="reply(this)">回复</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="comment">
-                                <a class="avatar">
-                                    <img src="https://picsum.photos/100">
-                                </a>
-                                <div class="content">
-                                    <a class="author">Joe Henderson</a>
-                                    <div class="metadata">
-                                        <span class="date">5 days ago</span>
-                                    </div>
-                                    <div class="text">
-                                        Dude, this is awesome. Thanks so much
-                                    </div>
-                                    <div class="actions">
-                                        <a class="reply">Reply</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <form class="ui reply form">
+
+                        </div>
+                            <!--评论回复-->
+                            <form class="ui reply form" th:action="@{/admin/comments}" method="post">
+                                <input type="hidden" name="blog.id" th:value="${blog.id}">
+                                <input type="hidden" name="parentComment.id" value="-1">
+                                <!--<input type="hidden" name="email" th:value="${blog.email}">-->
+                                <!--<input type="hidden" name="nickname" th:value="${blog.nickname}">-->
                                 <div class="field">
-                                    <textarea></textarea>
+                                    <textarea name="content"></textarea>
                                 </div>
-                                <div class="ui blue labeled submit icon button">
-                                    <i class="icon edit"></i> Add Reply
-                                </div>
+                                <button type="submit" class="ui blue button">添加回复</button>
+                                <!--<div class="ui blue labeled submit icon button">
+                                    <i class="icon edit"></i> 添加回复
+                                </div>-->
                             </form>
                         </div>
-
-                    </div>
-                </div>
-                <div>
-                    <div class="title">
-                        <i class="dropdown icon"></i>
-                        题目2
-                    </div>
-                    <div class="content">
-                        <p class="transition hidden">正文2</p>
-                    </div>
-                </div>
-                <div>
-                    <div class="title">
-                        <i class="dropdown icon"></i>
-                        题目3
-                    </div>
-                    <div class="content">
-                        <p class="transition hidden">正文3</p>
-                        <p class="transition hidden">正文4</p>
                     </div>
                 </div>
 
             </div>
+
         </div>
     </div>
 </div>
@@ -157,8 +126,12 @@
         })
     ;
 
-    function cc() {
-        alert("on click")
+    function reply(obj) {
+        var commentId = $(obj).data('commentid');
+        var commentNickname = $(obj).data('commentnickname');
+        $("[name='content']").attr("placeholder", '@'+commentNickname).focus();
+        $("[name='parentComment.id']").val(commentId);
+        //$(window).scrollTo($("#comment-form"),500);
     }
 </script>
 </body>
