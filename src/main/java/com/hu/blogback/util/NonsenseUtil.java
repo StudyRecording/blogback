@@ -60,4 +60,29 @@ public class NonsenseUtil {
         }
     }
 
+    /**
+     * 评论是否已读
+     */
+    public enum CommentView {
+
+        // 已读
+        READED(true),
+        // 未读
+        UNREAD(false);
+
+        private boolean view;
+
+        private CommentView(Boolean view) {
+            this.view = view;
+        }
+
+        public boolean isView() {
+            return this.view;
+        }
+
+        public void setView(boolean view) {
+            this.view = view;
+        }
+    }
+
 }

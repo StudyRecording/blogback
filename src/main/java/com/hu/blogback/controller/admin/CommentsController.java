@@ -5,6 +5,7 @@ import com.hu.blogback.pojo.Comment;
 import com.hu.blogback.pojo.User;
 import com.hu.blogback.service.BlogService;
 import com.hu.blogback.service.CommentService;
+import com.hu.blogback.util.NonsenseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,7 @@ public class CommentsController {
     @GetMapping("/comments")
     public String comment(Model model) {
 
-        List<Blog> blogs = commentService.listBlogByComment(false);
+        List<Blog> blogs = commentService.listBlogByComment(NonsenseUtil.CommentView.UNREAD.isView());
         for (Blog blog :
                 blogs) {
             List<Comment> comments = commentService.listComentByBlogId(blog.getId());
@@ -46,7 +47,7 @@ public class CommentsController {
         comment.setNickname(user.getNickname());
         comment.setEmail(user.getEmail());
         comment.setAdminComment(true);
-        comment.setView(true);
+        comment.setView(NonsenseUtil.CommentView.READED.isView());
         commentService.saveComment(comment);
 
         //return "redirect:/admin/comments";
@@ -62,7 +63,7 @@ public class CommentsController {
             for (Comment comment :
                     comments) {
                 if (!comment.isView()) {
-                    comment.setView(true);
+                    comment.setView(NonsenseUtil.CommentView.READED.isView());
                     commentService.saveComment(comment);
                 }
 
@@ -72,7 +73,7 @@ public class CommentsController {
                     for (Comment c :
                             childs) {
                         if (!c.isView()) {
-                            c.setView(true);
+                            c.setView(NonsenseUtil.CommentView.READED.isView());
                             commentService.saveComment(c);
                         }
                     }
@@ -89,13 +90,13 @@ public class CommentsController {
     @ResponseBody
     public Integer ignore() {
 
-        List<Comment> comments = commentService.listCommentByIsView(false);
+        List<Comment> comments = commentService.listCommentByIsView(NonsenseUtil.CommentView.UNREAD.isView());
         if (comments == null) {
             return 0;//没有未读评论
         }
         for (Comment comment :
                 comments) {
-            comment.setView(true);
+            comment.setView(NonsenseUtil.CommentView.READED.isView());
             commentService.saveComment(comment);
         }
 
