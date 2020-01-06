@@ -49,7 +49,8 @@ public class CommentsController {
         comment.setView(true);
         commentService.saveComment(comment);
 
-        return "redirect:/admin/comments";
+        //return "redirect:/admin/comments";
+        return "admin/comments";
     }
 
     @GetMapping("/view/{id}")
@@ -76,16 +77,28 @@ public class CommentsController {
                         }
                     }
                 }
-
-
             }
-
             // 修改成功（暂时先这样吧，懒得改了）
             return 1;
         }
-
         //修改失败
         return 0;
     }
 
+    @GetMapping("/ignore")
+    @ResponseBody
+    public Integer ignore() {
+
+        List<Comment> comments = commentService.listCommentByIsView(false);
+        if (comments == null) {
+            return 0;//没有未读评论
+        }
+        for (Comment comment :
+                comments) {
+            comment.setView(true);
+            commentService.saveComment(comment);
+        }
+
+        return 1;//操作成功
+    }
 }

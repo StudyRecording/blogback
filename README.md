@@ -3,7 +3,7 @@
 ## 实现框架
 Spring Boot + Jpa + Thymeleaf  
 使用MySql数据库  
-前端UI组件样式使用Segment UI
+前端UI组件样式使用Semantic UI  
 使用的缓存工具为Ehcache
 
  

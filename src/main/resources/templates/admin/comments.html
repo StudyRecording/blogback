@@ -7,14 +7,14 @@
 <body>
 <nav th:replace="admin/_fragment :: nav(4)"></nav>
 
-<div class="m-padded-tb-huge m-container-tiny">
+<div class="m-padded-tb-huge m-margin-tb-large m-container-admin-comment">
     <div class="ui container">
 
         <h1 class="ui dividing header">
             <i class="ui comment outline icon"></i>
             <div class="content" style="width: 652px !important;">
                 <label style="vertical-align: inherit;">留言评论</label>
-                <button class="ui mini red basic button right floated" style="margin-top: 0.8rem !important;">忽略全部</button>
+                <button class="ui mini red basic button right floated" onclick="ignoreAllComment()" style="margin-top: 0.8rem !important;">忽略全部</button>
             </div>
 
         </h1>
@@ -141,6 +141,16 @@
             if (data == 1) {
                 //alert("成功")
             }
+        })
+    }
+
+    function ignoreAllComment() {
+        $.get("/admin/ignore",function (data) {
+            if (data == 1) {
+                //alert("忽略成功!");
+                location.reload();
+            }
+
         })
     }
 </script>
