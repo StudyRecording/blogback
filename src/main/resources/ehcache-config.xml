@@ -14,12 +14,12 @@
 
     <cache name="blog_cache"
         maxElementsInMemory="10000"
-        eternal="true"
-        timeToLiveSeconds="120"
-        timeToIdleSeconds="120"
+        eternal="false"
+        timeToLiveSeconds="2"
+        timeToIdleSeconds="2"
         overflowToDisk="true"
         diskPersistent="true"
-        diskExpiryThreadIntervalSeconds="600"/>
+        diskExpiryThreadIntervalSeconds="12"/>
 
     <cache name="footer_cache"
         maxElementsInMemory="1000"

@@ -57,7 +57,7 @@
                 <input type="hidden" name="id" th:value="*{id}">
                 <div class="required field">
                     <div class="ui left labeled input">
-                        <div class="ui selection compact teal basic dropdown label">
+                        <div class="ui selection compact teal basic dropdown label" style="z-index: 12 !important;">
                             <input type="hidden" value="原创" name="flag" th:value="*{flag}">
                             <i class="dropdown icon"></i>
                             <div class="text">原创</div>
@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="required field">
-                    <div id="md-content" style="z-index: 11;">
+                    <div id="md-content" style="z-index: 11 !important;">
                         <textarea name="content" placeholder="博客内容" style="display: none;" th:text="*{content}"></textarea>
                     </div>
 
@@ -233,7 +233,17 @@
                 flowChart : true,
 
                 // 时序图设置
-                sequenceDiagram : true
+                sequenceDiagram : true,
+
+                // 监听全屏事件
+                onfullscreen : function() {
+                    $(".selection.compact").attr("style", "z-index: 11 !important;");
+                },
+
+                //监听全屏退出事件
+                onfullscreenExit : function() {
+                    $(".selection.compact").attr("style", "z-index: 12 !important;");
+                }
 
             });
 
