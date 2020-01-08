@@ -1,5 +1,8 @@
 package com.hu.blogback.pojo;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,6 +11,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "t_setting")
+@Component
+@ConfigurationProperties(prefix = "setting")
 public class BlogSetting implements Serializable {
 
     @Id

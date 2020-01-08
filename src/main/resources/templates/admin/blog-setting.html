@@ -6,8 +6,156 @@
 </head>
 <body>
 <nav th:replace="admin/_fragment::nav(-1)"></nav>
-<div class="m-padded-tb-huge m-container-small">
-    博客设置主要内容
+<div class="m-padded-tb-huge m-margin-tb-large m-container-admin-comment">
+    <!--博客设置主要内容-->
+    <div class="ui container">
+        <h1 class="ui dividing header">
+            <i class="ui cogs icon"></i>
+            <div class="content" style="width: 652px !important;">
+                <label style="vertical-align: inherit;">博客设置</label>
+                <button class="ui mini red basic button right floated" onclick="" style="margin-top: 0.8rem !important;">恢复默认设置</button>
+            </div>
+        </h1>
+
+        <div class="ui container" style="margin-top: 2em !important;">
+            <form class="ui form">
+                <!--顶栏设置-->
+                <div class="ui segment">
+
+                    <h2 class="ui horizontal divider header">
+                        <i class="ui cog icon"></i>
+                        顶栏设置
+                    </h2>
+
+                    <div class="two fields">
+                        <div class="inline field">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox">
+                                <label>顶栏显示分类</label>
+                            </div>
+                        </div>
+
+                        <div class="inline field">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox">
+                                <label>顶栏显示标签</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="two fields">
+                        <div class="inline field">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox">
+                                <label>顶栏显示归档</label>
+                            </div>
+                        </div>
+
+                        <div class="inline field">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox">
+                                <label>顶栏显示关于我</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--侧栏设置-->
+                <div class="ui segment">
+
+                    <h2 class="ui horizontal divider header">
+                        <i class="ui cog icon"></i>
+                        侧栏设置
+                    </h2>
+
+                    <div class="two fields">
+                        <div class="inline field">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox">
+                                <label>显示侧边分类</label>
+                            </div>
+                        </div>
+                        <div class="inline field">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox">
+                                <label>显示侧边标签</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="two fields">
+                        <div class="inline field">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox">
+                                <label>显示侧边推荐</label>
+                            </div>
+                        </div>
+                        <div class="inline field">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox">
+                                <label>显示侧边二维码</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--博客页脚设置-->
+                <div class="ui segment">
+                    <h2 class="ui horizontal divider header">
+                        <i class="ui cog icon"></i>
+                        底栏设置
+                    </h2>
+
+                    <div class="inline field">
+                        <div class="ui toggle checkbox">
+                            <input type="checkbox">
+                            <label>显示底部图片</label>
+                        </div>
+                    </div>
+
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Email</label>
+                            <input type="text" placeholder="名">
+                        </div>
+
+                        <div class="field">
+                            <label>QQ</label>
+                            <input type="text" placeholder="名">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--其他设置-->
+                <div class="ui segment">
+                    <h2 class="ui horizontal divider header">
+                        <i class="ui cog icon"></i>
+                        其他设置
+                    </h2>
+
+                    <div class="two fields">
+                        <div class="inline field">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox">
+                                <label>搜索功能</label>
+                            </div>
+                        </div>
+
+                        <div class="inline field">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox">
+                                <label>博客底部评论功能</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 <footer th:replace="admin/_fragment::footer"></footer>
 </body>
