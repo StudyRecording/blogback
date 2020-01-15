@@ -28,15 +28,15 @@
                     </h2>
 
                     <div class="two fields">
-                        <div class="inline field">
-                            <div class="ui toggle checkbox">
+                        <div class="field">
+                            <div class="ui toggle checkbox classification">
                                 <input type="checkbox">
                                 <label>顶栏显示分类</label>
                             </div>
                         </div>
 
                         <div class="inline field">
-                            <div class="ui toggle checkbox">
+                            <div class="ui toggle checkbox tag">
                                 <input type="checkbox">
                                 <label>顶栏显示标签</label>
                             </div>
@@ -45,14 +45,14 @@
 
                     <div class="two fields">
                         <div class="inline field">
-                            <div class="ui toggle checkbox">
+                            <div class="ui toggle checkbox archive">
                                 <input type="checkbox">
                                 <label>顶栏显示归档</label>
                             </div>
                         </div>
 
                         <div class="inline field">
-                            <div class="ui toggle checkbox">
+                            <div class="ui toggle checkbox aboutMe">
                                 <input type="checkbox">
                                 <label>顶栏显示关于我</label>
                             </div>
@@ -71,13 +71,13 @@
 
                     <div class="two fields">
                         <div class="inline field">
-                            <div class="ui toggle checkbox">
+                            <div class="ui toggle checkbox sideClassification">
                                 <input type="checkbox">
                                 <label>显示侧边分类</label>
                             </div>
                         </div>
                         <div class="inline field">
-                            <div class="ui toggle checkbox">
+                            <div class="ui toggle checkbox sideTag">
                                 <input type="checkbox">
                                 <label>显示侧边标签</label>
                             </div>
@@ -86,13 +86,13 @@
 
                     <div class="two fields">
                         <div class="inline field">
-                            <div class="ui toggle checkbox">
+                            <div class="ui toggle checkbox sideRecommend">
                                 <input type="checkbox">
                                 <label>显示侧边推荐</label>
                             </div>
                         </div>
                         <div class="inline field">
-                            <div class="ui toggle checkbox">
+                            <div class="ui toggle checkbox sideQRcode">
                                 <input type="checkbox">
                                 <label>显示侧边二维码</label>
                             </div>
@@ -109,7 +109,7 @@
                     </h2>
 
                     <div class="inline field">
-                        <div class="ui toggle checkbox">
+                        <div class="ui toggle checkbox footerQRcode">
                             <input type="checkbox">
                             <label>显示底部图片</label>
                         </div>
@@ -118,12 +118,12 @@
                     <div class="two fields">
                         <div class="field">
                             <label>Email</label>
-                            <input type="text" placeholder="名">
+                            <input type="text" id="email" placeholder="名">
                         </div>
 
                         <div class="field">
                             <label>QQ</label>
-                            <input type="text" placeholder="名">
+                            <input type="text" id="qq" placeholder="名">
                         </div>
                     </div>
 
@@ -138,14 +138,14 @@
 
                     <div class="two fields">
                         <div class="inline field">
-                            <div class="ui toggle checkbox">
+                            <div class="ui toggle checkbox search">
                                 <input type="checkbox">
                                 <label>搜索功能</label>
                             </div>
                         </div>
 
                         <div class="inline field">
-                            <div class="ui toggle checkbox">
+                            <div class="ui toggle checkbox comment">
                                 <input type="checkbox">
                                 <label>博客底部评论功能</label>
                             </div>
@@ -153,10 +153,255 @@
                     </div>
 
                 </div>
+
             </form>
+            <button class="fluid positive large ui button" onclick="buttonClick()">保存设置</button>
         </div>
     </div>
 </div>
 <footer th:replace="admin/_fragment::footer"></footer>
+<script th:inline="javascript">
+    // $('.ui.checkbox')
+    //     .checkbox()
+    // ;
+    var id;
+    var classification;
+    var tag;
+    var archive;
+    var aboutMe;
+    var sideClassification;
+    var sideTag;
+    var sideRecommend;
+    var sideQRcode;
+    var footerQRcode;
+    var search;
+    var comment;
+    var footerEmail;
+    var footerQQ;
+    $(function () {
+        var blogSetting = /*[[${application.setting}]]*/null;
+        id = blogSetting.id;
+        //从此行到358行，我不可否认这写的是非常傻逼的代码，但由于我对前端的不熟悉和任务的紧迫，
+        //也暂时只能这样，剩下的以后再说吧!!!!!!
+        classification = blogSetting.classification;
+        if (classification == true) {
+            $('.ui.checkbox.classification').checkbox('set checked');
+        }
+        $('.ui.checkbox.classification').checkbox({
+            onChecked: function() {
+                classification = !classification;
+                $('.ui.checkbox.classification').checkbox('set checked')
+            },
+            onUnchecked: function() {
+                classification = !classification;
+                $('.ui.checkbox.classification').checkbox('set unchecked')
+            }
+        })
+
+
+        tag = blogSetting.tag;
+        if (tag == true) {
+            $('.ui.checkbox.tag').checkbox('set checked');
+        }
+        $('.ui.checkbox.tag').checkbox({
+            onChecked: function() {
+                tag = !tag;
+                $('.ui.checkbox.tag').checkbox('set checked')
+            },
+            onUnchecked: function() {
+                tag = !tag;
+                $('.ui.checkbox.tag').checkbox('set unchecked')
+            }
+        })
+
+
+        archive = blogSetting.archive;
+        if (archive == true) {
+            $('.ui.checkbox.archive').checkbox('set checked');
+        }
+        $('.ui.checkbox.archive').checkbox({
+            onChecked: function() {
+                archive = !archive;
+                $('.ui.checkbox.archive').checkbox('set checked')
+            },
+            onUnchecked: function() {
+                archive = !archive;
+                $('.ui.checkbox.archive').checkbox('set unchecked')
+            }
+        })
+
+
+
+        aboutMe = blogSetting.aboutMe;
+        if (aboutMe == true) {
+            $('.ui.checkbox.aboutMe').checkbox('set checked');
+        }
+        $('.ui.checkbox.aboutMe').checkbox({
+            onChecked: function() {
+                aboutMe = !aboutMe;
+                $('.ui.checkbox.aboutMe').checkbox('set checked')
+            },
+            onUnchecked: function() {
+                aboutMe = !aboutMe;
+                $('.ui.checkbox.aboutMe').checkbox('set unchecked')
+            }
+        })
+
+
+
+        sideClassification = blogSetting.sideClassification;
+        if (sideClassification == true) {
+            $('.ui.checkbox.sideClassification').checkbox('set checked');
+        }
+        $('.ui.checkbox.sideClassification').checkbox({
+            onChecked: function() {
+                sideClassification = !sideClassification;
+                $('.ui.checkbox.sideClassification').checkbox('set checked')
+            },
+            onUnchecked: function() {
+                sideClassification = !sideClassification;
+                $('.ui.checkbox.sideClassification').checkbox('set unchecked')
+            }
+        })
+
+
+
+        sideTag = blogSetting.sideTag;
+        if (sideTag == true) {
+            $('.ui.checkbox.sideTag').checkbox('set checked');
+        }
+        $('.ui.checkbox.sideTag').checkbox({
+            onChecked: function() {
+                sideTag = !sideTag;
+                $('.ui.checkbox.sideTag').checkbox('set checked')
+            },
+            onUnchecked: function() {
+                sideTag = !sideTag;
+                $('.ui.checkbox.sideTag').checkbox('set unchecked')
+            }
+        })
+
+
+        sideRecommend = blogSetting.sideRecommend;
+        if (sideRecommend == true) {
+            $('.ui.checkbox.sideRecommend').checkbox('set checked');
+        }
+        $('.ui.checkbox.sideRecommend').checkbox({
+            onChecked: function() {
+                sideRecommend = !sideRecommend;
+                $('.ui.checkbox.sideRecommend').checkbox('set checked')
+            },
+            onUnchecked: function() {
+                sideRecommend = !sideRecommend;
+                $('.ui.checkbox.sideRecommend').checkbox('set unchecked')
+            }
+        })
+
+
+        sideQRcode = blogSetting.sideQRcode;
+        if (sideQRcode == true) {
+            $('.ui.checkbox.sideQRcode').checkbox('set checked');
+        }
+        $('.ui.checkbox.sideQRcode').checkbox({
+            onChecked: function() {
+                sideQRcode = !sideQRcode;
+                $('.ui.checkbox.sideQRcode').checkbox('set checked')
+            },
+            onUnchecked: function() {
+                sideQRcode = !sideQRcode;
+                $('.ui.checkbox.sideQRcode').checkbox('set unchecked')
+            }
+        })
+
+
+
+        footerQRcode = blogSetting.footerQRcode;
+        if (footerQRcode == true) {
+            $('.ui.checkbox.footerQRcode').checkbox('set checked');
+        }
+        $('.ui.checkbox.footerQRcode').checkbox({
+            onChecked: function() {
+                footerQRcode = !footerQRcode;
+                $('.ui.checkbox.footerQRcode').checkbox('set checked')
+            },
+            onUnchecked: function() {
+                footerQRcode = !footerQRcode;
+                $('.ui.checkbox.footerQRcode').checkbox('set unchecked')
+            }
+        })
+
+
+        search = blogSetting.search;
+        if (search == true) {
+            $('.ui.checkbox.search').checkbox('set checked');
+        }
+        $('.ui.checkbox.search').checkbox({
+            onChecked: function() {
+                search = !search;
+                $('.ui.checkbox.search').checkbox('set checked')
+            },
+            onUnchecked: function() {
+                search = !search;
+                $('.ui.checkbox.search').checkbox('set unchecked')
+            }
+        })
+
+
+        comment = blogSetting.comment;
+        if (comment == true) {
+            $('.ui.checkbox.comment').checkbox('set checked');
+        }
+        $('.ui.checkbox.comment').checkbox({
+            onChecked: function() {
+                comment = !comment;
+                $('.ui.checkbox.comment').checkbox('set checked')
+            },
+            onUnchecked: function() {
+                comment = !comment;
+                $('.ui.checkbox.comment').checkbox('set unchecked')
+            }
+        })
+
+
+        footerEmail = blogSetting.footerEmail;
+        if (footerEmail != null && footerEmail.trim() != "") {
+            $("#email").val(footerEmail);
+        }
+        footerQQ = blogSetting.footerQQ;
+        if (footerQQ != null && footerQQ.trim() != "") {
+            $("#qq").val(footerQQ);
+        }
+
+    })
+
+    //点击按钮提交
+    function buttonClick() {
+        var email = $("#email").val();
+        var qq = $("#qq").val();
+        alert("--------")
+        $.post("/admin/updatesetting", {
+            "id" : id,
+            "classification" : classification,
+            "tag" : tag,
+            "archive" : archive,
+            "aboutMe" : aboutMe,
+            "sideClassification" : sideClassification,
+            "sideTag" : sideTag,
+            "sideRecommend" : sideRecommend,
+            "sideQRcode" : sideQRcode,
+            "footerQRcode" : footerQRcode,
+            "search" : search,
+            "comment" : comment,
+            "footerEmail" : email,
+            "footerQQ" : qq
+        }, function (data) {
+            if (data == 1) {
+                alert("修改成功!")
+            } else {
+                alert("修改失败!")
+            }
+        });
+    }
+</script>
 </body>
 </html>

@@ -31,8 +31,9 @@ public class BlogSettingInit /*implements ApplicationListener<ApplicationStarted
         List<BlogSetting> blogSettings = blogSettingService.findBlogSetting();
         if (blogSettings.isEmpty() || blogSettings == null) {
             BlogSetting blogSetting = new BlogSetting();
+            BlogSetting blogSetting1 = blogSettingService.BlogSettingSaveOrUpdate(blogSetting);
+            blogSetting.setId(blogSetting1.getId());
             servletContext.setAttribute("setting", blogSetting);
-            blogSettingService.BlogSettingSaveOrUpdate(blogSetting);
         }  else {
             servletContext.setAttribute("setting", blogSettings.get(0));
         }
