@@ -1,18 +1,16 @@
 package com.hu.blogback.pojo;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.hibernate.annotations.Proxy;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "t_setting")
+@Entity(name = "t_setting")
 @Component
-@ConfigurationProperties(prefix = "setting")
+@Proxy(lazy = false)
 public class BlogSetting implements Serializable {
 
     @Id
@@ -53,10 +51,10 @@ public class BlogSetting implements Serializable {
     private boolean footerQRcode;
 
     // 底部email
-    private String footerEmail;
+    private String footerEmail = "2876391688@qq.com";
 
     // 底部QQ
-    private String footerQQ;
+    private String footerQQ = "2876391688";
 
     // 博客底部是否显示评论
     private boolean comment;
