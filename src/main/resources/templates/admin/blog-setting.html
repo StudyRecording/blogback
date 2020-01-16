@@ -13,7 +13,7 @@
             <i class="ui cogs icon"></i>
             <div class="content" style="width: 652px !important;">
                 <label style="vertical-align: inherit;">博客设置</label>
-                <button class="ui mini red basic button right floated" onclick="" style="margin-top: 0.8rem !important;">恢复默认设置</button>
+                <button class="ui mini red basic button right floated" onclick="defaultSetting()" style="margin-top: 0.8rem !important;">恢复默认设置</button>
             </div>
         </h1>
 
@@ -155,7 +155,7 @@
                 </div>
 
             </form>
-            <button class="fluid positive large ui button" onclick="buttonClick()">保存设置</button>
+            <button class="fluid positive large ui button" style="margin-top: 2em !important;" onclick="buttonClick()">保存设置</button>
         </div>
     </div>
 </div>
@@ -179,6 +179,8 @@
     var footerEmail;
     var footerQQ;
     $(function () {
+
+
         var blogSetting = /*[[${application.setting}]]*/null;
         id = blogSetting.id;
         //从此行到358行，我不可否认这写的是非常傻逼的代码，但由于我对前端的不熟悉和任务的紧迫，
@@ -378,7 +380,7 @@
     function buttonClick() {
         var email = $("#email").val();
         var qq = $("#qq").val();
-        alert("--------")
+        //alert("--------")
         $.post("/admin/updatesetting", {
             "id" : id,
             "classification" : classification,
@@ -402,6 +404,23 @@
             }
         });
     }
+
+
+    // 恢复默认设置
+    function defaultSetting() {
+        //alert("恢复默认设置")
+        $.get("/admin/defaultsetting", function (data) {
+            if (data == 1) {
+                //alert("成功恢复默认设置！")
+                location.reload();
+            }
+        })
+    }
+
+    $('.ui.dropdown').dropdown({
+        on:'hover'
+    });
+
 </script>
 </body>
 </html>

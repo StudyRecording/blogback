@@ -48,7 +48,19 @@ public class BlogSettingController {
         } else {
             return 2;
         }
+    }
 
+    @GetMapping("/defaultsetting")
+    @ResponseBody
+    public int defaultSetting(HttpServletRequest request) {
+
+        ServletContext servletContext = request.getServletContext();
+        BlogSetting blogSetting = (BlogSetting) servletContext.getAttribute("setting");
+        BlogSetting blogSetting1 = new BlogSetting();
+        blogSetting1.setId(blogSetting.getId());
+        servletContext.setAttribute("setting", blogSetting1);
+        blogSettingService.BlogSettingSaveOrUpdate(blogSetting1);
+        return 1;
     }
 
 }

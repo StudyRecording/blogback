@@ -38,8 +38,8 @@
     <div class="m-padded-tb-huge m-container">
         <div class="ui container">
             <div class="ui stackable grid">
-                <!--左边-->
-                <div class="eleven wide column">
+                <!--左边eleven wide -->
+                <div class="column" th:classappend="${application.setting.side} ? 'eleven wide'">
                     <!--      头部              -->
                     <div class="ui top attached segment">
                         <div class="ui middle aligned two column grid">
@@ -271,9 +271,9 @@
                 </div>
 
                 <!--右边-->
-                <div class="five wide column">
+                <div class="five wide column" th:if="${application.setting.side}">
                     <!--分类-->
-                    <div class="ui segments">
+                    <div class="ui segments" th:if="${application.setting.sideClassification}">
                         <div class="ui secondary segment">
                             <div class="ui two column grid">
                                 <div class="column">
@@ -319,7 +319,7 @@
                     </div>
 
                     <!--标签-->
-                    <div class="ui segments m-margin-top-large">
+                    <div class="ui segments m-margin-top-large" th:if="${application.setting.sideTag}">
                         <div class="ui secondary segment">
                             <div class="ui two column grid">
                                 <div class="column">
@@ -351,7 +351,7 @@
 
                     </div>
                     <!--最新推荐-->
-                    <div class="ui segments m-margin-top-large">
+                    <div class="ui segments m-margin-top-large" th:if="${application.setting.sideRecommend}">
                         <div class="ui secondary segment">
                             <i class="bookmark icon"></i>最新推荐
                         </div>
@@ -367,8 +367,8 @@
 
 
                     <!--二维码-->
-                    <h4 class="ui horizontal divider header m-margin-top-large">扫码关注我</h4>
-                    <div class="ui centered card" style="width: 12em">
+                    <h4 class="ui horizontal divider header m-margin-top-large" th:if="${application.setting.sideQRcode}">扫码关注我</h4>
+                    <div class="ui centered card" style="width: 12em" th:if="${application.setting.sideQRcode}">
                         <img src="../static/images/wechat.png" th:src="@{/images/wechat.png}" alt="" class="ui rounded image">
                     </div>
                 </div>

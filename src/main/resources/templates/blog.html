@@ -128,7 +128,7 @@
             </div>
 
             <!--留言区域-->
-            <div class="ui bottom attached segment">
+            <div class="ui bottom attached segment" th:if="${application.setting.comment} ? ${blog.commentabled} : false">
 
                 <div class="ui teal segment" id="comment-container">
                     <div th:fragment="commentList">
