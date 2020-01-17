@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="usr/_fragment :: head(~{:: title})">
+    <meta charset="UTF-8">
+    <title>登录和注册</title>
+</head>
+<body>
+<nav class="ui sticky inverted attached segment m-padded-tb-tiny m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item" th:text="#{nav.title}">Nonsense Code</h2>
+        </div>
+    </div>
+</nav>
+<!--这是用户登录页面-->
+<div class="m-padded-tb-huge m-container">
+    <div class="ui container">
+        <h2 class="ui dividing header">
+            <i class="edit outline icon"></i>
+            <div class="content">
+                登录和注册
+            </div>
+        </h2>
+
+        <!--登录 和 注册 表单-->
+        <div class="ui container m-padded-tb">
+            <div class="ui placeholder segment">
+                <div class="ui two column very relaxed stackable grid">
+                    <div class="column" id="login">
+                        <div class="ui blurring dimmer"><!--inverted-->
+                            <div class="content">
+                                <div class="center">
+                                    <div class="ui big button" onclick="loginShow()">
+                                        <i class="signup icon"></i>
+                                        登录
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui form">
+                            <div class="field">
+                                <label>用户名</label>
+                                <div class="ui left icon input">
+                                    <input type="text" placeholder="Username">
+                                    <i class="user icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>密码</label>
+                                <div class="ui left icon input">
+                                    <input type="password" placeholder="Password">
+                                    <i class="lock icon"></i>
+                                </div>
+                            </div>
+                            <div class="ui blue submit button">登录</div>
+                        </div>
+                    </div>
+                    <div class="middle aligned column" id="sign-up">
+                        <div class="ui blurring dimmer">
+                            <div class="content">
+                                <div class="center">
+                                    <div class="ui big button" onclick="signShow()">
+                                        <i class="signup icon"></i>
+                                        注册
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--inverted-->
+                        <div class="ui form">
+                            <div class="field">
+                                <label>用户名</label>
+                                <div class="ui left icon input">
+                                    <input type="text" placeholder="Username">
+                                    <i class="user icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>密码</label>
+                                <div class="ui left icon input">
+                                    <input type="password" placeholder="Password">
+                                    <i class="lock icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>确认密码</label>
+                                <div class="ui left icon input">
+                                    <input type="password" placeholder="Password">
+                                    <i class="lock icon"></i>
+                                </div>
+                            </div>
+                            <div class="ui blue submit button">注册</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui vertical divider">
+                    OR
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<footer th:replace="usr/_fragment :: footer"></footer>
+
+<script>
+    $("#sign-up").dimmer('show');
+
+    function signShow() {
+        $("#sign-up").dimmer("hide");
+        $("#login").dimmer("show");
+    }
+
+    function loginShow() {
+        $("#sign-up").dimmer("show");
+        $("#login").dimmer("hide");
+    }
+</script>
+</body>
+</html>

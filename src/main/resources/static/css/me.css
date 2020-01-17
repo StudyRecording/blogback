@@ -59,6 +59,10 @@ body {
     margin-top: 0.3em !important;
     margin-bottom: 0.3em !important;
 }
+.m-margin-tb-normal {
+    margin-top: 0.5em !important;
+    margin-bottom: 0.5em !important;
+}
 
 .m-margin-tb-large {
     margin-top: 3em !important;
