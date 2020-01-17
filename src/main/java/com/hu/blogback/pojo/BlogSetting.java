@@ -1,6 +1,5 @@
 package com.hu.blogback.pojo;
 
-import org.hibernate.annotations.Proxy;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import java.io.Serializable;
 
 @Entity(name = "t_setting")
 @Component
-@Proxy(lazy = false)
 public class BlogSetting implements Serializable {
 
     @Id

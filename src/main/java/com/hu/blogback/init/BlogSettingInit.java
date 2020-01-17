@@ -7,6 +7,7 @@ import com.hu.blogback.pojo.User;
 import com.hu.blogback.service.BlogSettingService;
 import com.hu.blogback.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.EventListener;
@@ -26,8 +27,8 @@ public class BlogSettingInit /*implements ApplicationListener<ApplicationStarted
     private BlogSettingService blogSettingService;
 
     @EventListener
-    public void init(ApplicationStartedEvent applicationStartedEvent) {
-        ServletContext servletContext = ((WebApplicationContext) applicationStartedEvent.getApplicationContext()).getServletContext();
+    public void init(ApplicationReadyEvent applicationReadyEvent) {
+        ServletContext servletContext = ((WebApplicationContext) applicationReadyEvent.getApplicationContext()).getServletContext();
         List<BlogSetting> blogSettings = blogSettingService.findBlogSetting();
         if (blogSettings.isEmpty() || blogSettings == null) {
             BlogSetting blogSetting = new BlogSetting();
@@ -37,6 +38,5 @@ public class BlogSettingInit /*implements ApplicationListener<ApplicationStarted
         }  else {
             servletContext.setAttribute("setting", blogSettings.get(0));
         }
-
     }
 }
