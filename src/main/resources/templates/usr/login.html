@@ -38,23 +38,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="ui form">
-                            <div class="field">
+                        <form class="ui login form" method="post" th:action="@{/usr/login}">
+                            <input type="hidden" name="type" value="2">
+                            <div class="field" style="margin-top: 4em !important;">
                                 <label>用户名</label>
                                 <div class="ui left icon input">
-                                    <input type="text" placeholder="Username">
+                                    <input type="text" id="name" placeholder="Username" name="username">
                                     <i class="user icon"></i>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>密码</label>
                                 <div class="ui left icon input">
-                                    <input type="password" placeholder="Password">
+                                    <input type="password" id="pwd" placeholder="Password" name="password">
                                     <i class="lock icon"></i>
                                 </div>
                             </div>
                             <div class="ui blue submit button">登录</div>
-                        </div>
+                            <div class="ui error mini message"></div>
+                        </form>
                     </div>
                     <div class="middle aligned column" id="sign-up">
                         <div class="ui blurring dimmer">
@@ -67,30 +69,40 @@
                                 </div>
                             </div>
                         </div><!--inverted-->
-                        <div class="ui form">
+                        <form class="ui sign form" method="post" th:action="@{/usr/reg}">
+                            <input type="hidden" name="type" value="2">
                             <div class="field">
                                 <label>用户名</label>
                                 <div class="ui left icon input">
-                                    <input type="text" placeholder="Username">
+                                    <input type="text" id="username" placeholder="Username" name="username">
+                                    <i class="user icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>邮箱</label>
+                                <div class="ui left icon input">
+                                    <input type="text" id="email" placeholder="Email" name="email">
                                     <i class="user icon"></i>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>密码</label>
                                 <div class="ui left icon input">
-                                    <input type="password" placeholder="Password">
+                                    <input type="password" id="password" placeholder="Password" name="password">
                                     <i class="lock icon"></i>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>确认密码</label>
                                 <div class="ui left icon input">
-                                    <input type="password" placeholder="Password">
+                                    <input type="password" id="confirm" placeholder="Password">
                                     <i class="lock icon"></i>
                                 </div>
                             </div>
                             <div class="ui blue submit button">注册</div>
-                        </div>
+
+                            <div class="ui error mini message"></div>
+                        </form>
                     </div>
                 </div>
                 <div class="ui vertical divider">
@@ -99,6 +111,9 @@
             </div>
         </div>
 
+        <div class="ui success message" th:unless="${#strings.isEmpty(success_message)}" th:text="${success_message}"></div>
+
+        <div class="ui negative mini message" th:unless="${#strings.isEmpty(error_message)}" th:text="${error_message}"></div>
 
     </div>
 </div>
@@ -116,6 +131,63 @@
         $("#sign-up").dimmer("show");
         $("#login").dimmer("hide");
     }
+
+    $('.ui.sign.form').form({
+        fields: {
+            username: {
+                identifier:'username',
+                rules:[{
+                    type:'empty',
+                    prompt:'用户名输入错误'
+                }]
+            },
+            email: {
+                identifier:'email',
+                rules:[{
+                    type:'email',
+                    prompt:'邮箱输入错误'
+                }]
+            },
+            password: {
+                identifier:'password',
+                rules:[{
+                    type:'empty',
+                    prompt:'密码输入错误'
+                }]
+            },
+            confirm: {
+                identifier:'confirm',
+                rules:[{
+                    type: 'empty',
+                    prompt:'确认密码输入错误'
+                },
+                    {
+                        type:'match[password]',
+                        prompt:'两次密码不匹配'
+                    }]
+            }
+        }
+    });
+
+    $('.ui.login.form').form({
+        fields: {
+            username: {
+                identifier:'name',
+                rules:[{
+                    type:'empty',
+                    prompt:'用户名输入错误'
+                }]
+            },
+            password: {
+                identifier:'pwd',
+                rules:[{
+                    type:'empty',
+                    prompt:'密码输入错误'
+                }]
+            }
+
+        }
+    });
 </script>
 </body>
 </html>

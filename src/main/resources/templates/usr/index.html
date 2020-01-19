@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="usr/_fragment :: head(~{:: title})">
+    <meta charset="UTF-8">
+    <title>个人首页</title>
+</head>
+<body>
+<nav th:replace="usr/_fragment :: nav(1)"></nav>
+<!--这是用户主页面！-->
+<!--内容-->
+<div class="m-padded-tb-huge m-container-small">
+    <div class="ui container">
+        <div class="ui success large message">
+            <h3>登录成功！</h3>
+        </div>
+
+        <img src="https://picsum.photos/800/300" alt="" class="ui rounded bordered fluid image">
+    </div>
+</div>
+<footer th:replace="usr/_fragment :: footer"></footer>
+<script>
+
+    $('.ui.dropdown').dropdown({
+        on:'hover'
+    });
+
+
+    $.get("http://api.tianapi.com/txapi/mingyan/index", {
+        key : "919769a63eaf2d9b48ca8508c0a4f36b"
+    }, function (data) {
+        $("h3").text(data.newslist[0].content)
+    }, "json");
+
+
+
+
+</script>
+</body>
+</html>
