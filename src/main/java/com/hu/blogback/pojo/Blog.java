@@ -52,6 +52,9 @@ public class Blog implements Serializable {
     @ApiModelProperty("博客是否推荐")
     private boolean recommend;
 
+    @ApiModelProperty("是否是vip文章")
+    private boolean vip;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 
@@ -232,6 +235,14 @@ public class Blog implements Serializable {
         this.description = description;
     }
 
+    public boolean isVip() {
+        return vip;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip = vip;
+    }
+
     private String tagsToIds(List<Tag> tags) {
         if(!tags.isEmpty()) {
             StringBuffer ids = new StringBuffer();
@@ -263,6 +274,7 @@ public class Blog implements Serializable {
                 ", shareStatement=" + shareStatement +
                 ", commentabled=" + commentabled +
                 ", published=" + published +
+                ", vip=" + vip +
                 ", recommend=" + recommend +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +

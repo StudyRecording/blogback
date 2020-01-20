@@ -17,7 +17,7 @@ public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificat
     @Query("select b from Blog b where b.published = true and b.title like ?1 or b.content like ?1")
     Page<Blog> findByQuery(String query, Pageable pageable);
 
-    @Query("select b from Blog b where b.published = ?1")
+    @Query("select b from Blog b where b.published = ?1 and b.vip = false")
     Page<Blog> findByQuery(Boolean published, Pageable pageable);
 
     @Query("select function('date_format', b.updateTime, '%Y') as year from Blog b group by function('date_format', b.updateTime, '%Y') order by year desc")
