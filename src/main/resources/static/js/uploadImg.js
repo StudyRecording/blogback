@@ -8,7 +8,7 @@ function initPasteDragImg(Editor){
         var items = (event.clipboardData || window.clipboardData).items;
         var file = null;
         if (items && items.length) {
-            alert(items[0].type)
+            //alert(items[0].type)
             // 搜索剪切板items
             for (var i = 0; i < items.length; i++) {
                 if (items[i].type.indexOf('image') !== -1) {
