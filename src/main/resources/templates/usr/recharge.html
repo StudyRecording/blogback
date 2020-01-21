@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="usr/_fragment :: head(~{:: title})">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="usr/_fragment :: nav(2)"></nav>
+<div class="m-padded-tb-huge m-container">
+    <div class="ui container">
+        <!--充值页面！-->
+        <div class="ui centered card">
+            <div class="image">
+                <img src="../../static/images/vip.png" th:src="@{/images/vip.png}">
+            </div>
+            <div class="content">
+                <a class="ui centered header">VIP月卡会员</a>
+                <!--<div class="meta">
+                    <span class="date">Joined in 2013</span>
+                </div>-->
+                <div class="description">
+                    <div class="ui centered">
+                        <ul>
+                            <li>free</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="extra content">
+                <div class="ui centered">
+                    <button class="ui fluid positive button">充值 $10</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="usr/_fragment :: footer"></footer>
+<script>
+    $('.ui.dropdown').dropdown({
+        on:'hover'
+    });
+</script>
+</body>
+</html>

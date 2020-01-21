@@ -43,9 +43,20 @@
                         <i onclick="document.forms['search'].submit()" class="search link icon"></i>
                     </div>
                 </form>
+
+                <div class="ui dropdown item" th:if="${session.usr} != null" style="margin-left: 3em !important;">
+                    <div class="text">
+                        <img th:src="${session.usr.avatar}" id="avatarImg" alt="" class="ui avatar image">
+                        <span th:text="${session.usr.nickname}"></span>
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" th:href="@{/usr/logout}" class="item">退出</a>
+                    </div>
+                </div>
             </div>
 
-            <a class="ui inverted teal basic button right m-item item m-mobile-hide" th:href="@{/usr}">
+            <a class="ui inverted teal basic button right m-item item m-mobile-hide" th:if="${session.usr} == null" th:href="@{/usr}">
                 <label>登录 or 注册</label>
             </a>
         </div>

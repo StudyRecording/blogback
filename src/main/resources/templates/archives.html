@@ -51,10 +51,11 @@
             <th:block th:each="item : ${archiveMap}">
                 <h3 class="ui center aligned header" th:text="${item.key}">2017</h3>
                 <div class="ui fluid vertical menu">
-                    <a href="#" target="_blank" class="item" th:href="@{/blog/{id}(id=${blog.id})}" th:if="${blog.published}" th:each="blog : ${item.value}">
+                    <a href="#" target="_blank" class="item" th:href="@{/blog/{id}(id=${blog.id})}" th:classappend="${blog.vip}?'vipclick'" th:if="${blog.published}" th:each="blog : ${item.value}">
                         <span>
                             <i class="mini teal circle icon"></i><span th:text="${blog.title}">文章题目</span>
                             <div class="ui teal basic label m-padded-mini" th:text="${#dates.format(blog.updateTime, 'MMMdd')}">09月02</div>
+                            <div class="ui yellow basic label m-padded-mini" th:if="${blog.vip}">VIP</div>
                         </span>
                         <div class="ui orange basic label m-padded-mini" th:text="${blog.flag}">原创</div>
                     </a>
@@ -106,7 +107,13 @@
     </footer>
 
 
-    <script>
+    <script th:inline="javascript">
+        var usr = /*[[${session.usr}]]*/null;
+
+        $('.ui.dropdown').dropdown({
+            on:'hover'
+        });
+
         $(".menu.toggle").click(function () {
             $(".m-item").toggleClass("m-mobile-hide");
         });
@@ -114,6 +121,20 @@
         $('.ui.sticky')
             .sticky()
         ;
+
+        $(".vipclick").click(function () {
+
+            if (usr == null) {
+                alert("VIP用户可访问，但您尚未登录！");
+                return false;
+            }
+
+            if (usr.type == 1) {
+                return true;
+            }
+            alert("你不是VIP用户，请注册或登陆后进行充值操作，方可访问该文章！");
+            return false;
+        })
     </script>
 </body>
 </html>

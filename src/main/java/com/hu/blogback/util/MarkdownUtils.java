@@ -1,5 +1,6 @@
 package com.hu.blogback.util;
 
+import javafx.scene.media.VideoTrack;
 import org.commonmark.Extension;
 import org.commonmark.ext.gfm.tables.TableBlock;
 import org.commonmark.ext.gfm.tables.TablesExtension;
@@ -14,9 +15,6 @@ import org.commonmark.renderer.html.HtmlRenderer;
 
 import java.util.*;
 
-/**
- * Created by limi on 2017/10/22.
- */
 public class MarkdownUtils {
 
     /**
@@ -71,6 +69,7 @@ public class MarkdownUtils {
             if (node instanceof TableBlock) {
                 attributes.put("class", "ui celled table");
             }
+
         }
     }
 

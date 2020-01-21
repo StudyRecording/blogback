@@ -63,7 +63,7 @@
                 <div class="ui padded vertical segment m-padded-tb-large" th:if="${blog.published}" th:each="blog : ${page.content}">
                     <div class="ui middle aligned mobile reversed stackable grid">
                         <div class="eleven wide column">
-                            <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-block" th:text="${blog.title}">文章标题</a></h3>
+                            <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-block" th:classappend="${blog.vip}?'vipclick'" th:text="${blog.title}">文章标题</a></h3>
                             <p class="m-text" th:text="|${blog.description}......|">在这里写一些文章内容摘要</p>
                             <div class="ui grid">
                                 <div class="eleven wide column">
@@ -81,13 +81,14 @@
                                     </div>
                                 </div>
                                 <div class="right aligned five wide column">
+                                    <label class="ui yellow basic label m-padded-tiny m-text-thin" th:if="${blog.vip}">VIP</label>
                                     <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${blog.type.name}">标签名字</a>
                                 </div>
                             </div>
                         </div>
 
                         <div class="five wide column">
-                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                            <a href="#" th:classappend="${blog.vip}?'vipclick'" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
                                 <img src="https://picsum.photos/800/450" alt="" th:src="@{${blog.firstPicture}}" class="ui rounded image">
                             </a>
                         </div>
@@ -283,7 +284,13 @@
     </footer>
 
 
-    <script>
+    <script th:inline="javascript">
+        var usr = /*[[${session.usr}]]*/null;
+
+        $('.ui.dropdown').dropdown({
+            on:'hover'
+        });
+
         $(".menu.toggle").click(function () {
             $(".m-item").toggleClass("m-mobile-hide");
         });
@@ -291,6 +298,20 @@
         $('.ui.sticky')
             .sticky()
         ;
+
+        $(".vipclick").click(function () {
+
+            if (usr == null) {
+                alert("VIP用户可访问，但您尚未登录！");
+                return false;
+            }
+
+            if (usr.type == 1) {
+                return true;
+            }
+            alert("你不是VIP用户，请注册或登陆后进行充值操作，方可访问该文章！");
+            return false;
+        })
 
     </script>
 </body>
