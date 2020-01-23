@@ -24,7 +24,6 @@ public class AlipayUtil {
      * @param totalAmount  总金额
      * @param subject 订单标题
      * @param body 商品描述
-     * @param httpRequest
      * @param httpResponse
      * @throws IOException
      */
@@ -33,7 +32,6 @@ public class AlipayUtil {
             String totalAmount,
             String subject,
             String body,
-            HttpServletRequest httpRequest,
             HttpServletResponse httpResponse) throws IOException {
 
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.GATEWAY_URL,
