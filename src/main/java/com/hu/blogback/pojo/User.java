@@ -31,6 +31,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<Blog> blogs = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders = new ArrayList<>();
+
     public User() {
     }
 
