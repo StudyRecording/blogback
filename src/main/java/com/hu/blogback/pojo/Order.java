@@ -8,10 +8,10 @@ public class Order {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     // 订单编号
-    private int outTradeNo;
+    private String outTradeNo;
 
     // 支付宝交易号
     private String trade_no;
@@ -41,19 +41,19 @@ public class Order {
     public Order() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getOutTradeNo() {
+    public String getOutTradeNo() {
         return outTradeNo;
     }
 
-    public void setOutTradeNo(int outTradeNo) {
+    public void setOutTradeNo(String outTradeNo) {
         this.outTradeNo = outTradeNo;
     }
 

@@ -85,21 +85,22 @@ public class AlipayUtil {
             valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
             params.put(name, valueStr);
         }
-
-        //获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以下仅供参考)//
-        //商户订单号
-        String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8");
-
-        //支付宝交易号
-        String trade_no = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"), "UTF-8");
-
-        //交易状态
-        String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"), "UTF-8");
+        System.out.println("--------------------------params: ");
+        System.out.println(params);
+//        //获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以下仅供参考)//
+//        //商户订单号
+//        String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8");
+//
+//        //支付宝交易号
+//        String trade_no = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"), "UTF-8");
+//
+//        //交易状态
+//        String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"), "UTF-8");
 
         //获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表
         //计算得出通知验证结果
         boolean verify_result = AlipaySignature.rsaCheckV1(params, AlipayConfig.ALIPAY_PUBLIC_KEY, AlipayConfig.CHARSET, AlipayConfig.SIGN_TYPE);
-        //System.out.println("---------------calback: verify_result: " + verify_result);
+        System.out.println("---------------calback: verify_result: " + verify_result);
         if (verify_result) {//验证成功
             //请在这里加上商户的业务逻辑程序代码
             System.out.println("------------------callback成功！------------------------");
@@ -146,9 +147,11 @@ public class AlipayUtil {
         //计算得出通知验证结果
         boolean verify_result = AlipaySignature.rsaCheckV1(params, AlipayConfig.ALIPAY_PUBLIC_KEY, AlipayConfig.CHARSET, AlipayConfig.SIGN_TYPE);
         if (verify_result) {//验证成功
+            System.out.println("-----------------------------验证成功!");
             //请在这里加上商户的业务逻辑程序代码
             return true;
         } else {
+            System.out.println("-----------------------------验证失败!");
             //验证失败
             return false;
         }
