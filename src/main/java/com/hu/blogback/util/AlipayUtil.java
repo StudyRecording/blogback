@@ -7,6 +7,7 @@ import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.response.AlipayTradePagePayResponse;
 import com.hu.blogback.config.AlipayConfig;
+import com.hu.blogback.pojo.Order;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class AlipayUtil {
 
@@ -32,6 +34,7 @@ public class AlipayUtil {
             String totalAmount,
             String subject,
             String body,
+            HttpServletRequest httpRequest,
             HttpServletResponse httpResponse) throws IOException {
 
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.GATEWAY_URL,
@@ -115,7 +118,7 @@ public class AlipayUtil {
         out.close();
     }
 
-    public static boolean success(HttpServletRequest request, HttpServletResponse response) throws IOException, AlipayApiException {
+    public static Order success(Function<HttpServletRequest, Order> dealWith, HttpServletRequest request, HttpServletResponse response) throws IOException, AlipayApiException {
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=" + AlipayConfig.CHARSET);
         PrintWriter out = response.getWriter();
@@ -148,12 +151,14 @@ public class AlipayUtil {
         boolean verify_result = AlipaySignature.rsaCheckV1(params, AlipayConfig.ALIPAY_PUBLIC_KEY, AlipayConfig.CHARSET, AlipayConfig.SIGN_TYPE);
         if (verify_result) {//验证成功
             System.out.println("-----------------------------验证成功!");
+            Order apply = dealWith.apply(request);
+
             //请在这里加上商户的业务逻辑程序代码
-            return true;
+            return apply;
         } else {
             System.out.println("-----------------------------验证失败!");
             //验证失败
-            return false;
+            return null;
         }
     }
 

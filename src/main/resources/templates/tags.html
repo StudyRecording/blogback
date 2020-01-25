@@ -160,6 +160,7 @@
 
     <script th:inline="javascript">
         var usr = /*[[${session.usr}]]*/null;
+        var user = /*[[${session.user}]]*/null;
 
         $('.ui.dropdown').dropdown({
             on:'hover'
@@ -175,14 +176,15 @@
 
         $(".vipclick").click(function () {
 
+            if ((usr != null && usr.type == 1) || (user != null)) {
+                return true;
+            }
+
             if (usr == null) {
                 alert("VIP用户可访问，但您尚未登录！");
                 return false;
             }
 
-            if (usr.type == 1) {
-                return true;
-            }
             alert("你不是VIP用户，请注册或登陆后进行充值操作，方可访问该文章！");
             return false;
         })

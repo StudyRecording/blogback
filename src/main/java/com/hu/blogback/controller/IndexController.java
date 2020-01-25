@@ -2,6 +2,7 @@ package com.hu.blogback.controller;
 
 import com.hu.blogback.pojo.Blog;
 import com.hu.blogback.pojo.Comment;
+import com.hu.blogback.pojo.User;
 import com.hu.blogback.service.BlogService;
 import com.hu.blogback.service.CommentService;
 import com.hu.blogback.service.TagService;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -73,6 +75,5 @@ public class IndexController {
         model.addAttribute("newBlogs", blogService.listRecommendBlog(3));
         return "_fragment :: footerBlog";
     }
-
 
 }
